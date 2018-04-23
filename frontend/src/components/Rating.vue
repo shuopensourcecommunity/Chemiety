@@ -1,18 +1,20 @@
 <template lang="pug">
   // Configure "view" prop for QLayout
-  div.layout-padding
-    p
-      big 评分标准
-    div.row
+  div.row.justify-center.layout
+    div.row.col-md-10.col-lg-10
       div.col-12
-        q-card
-          q-item(label='' style="padding-top:20px")
-            q-item-main
-              q-tree(
-                :model="treeModel",
-                contract-html="<i class='material-icons'></i>"
-                expand-html="<i class='material-icons'></i>"
-             )
+        p
+          big 评分标准
+        div.row
+          div.col-12
+            q-card.bg-white
+              q-item(label='' style="padding-top:20px")
+                q-item-main
+                  q-tree(
+                    :model="treeModel",
+                    contract-html="<i class='material-icons'></i>"
+                    expand-html="<i class='material-icons'></i>"
+                )
 </template>
 
 <script>
@@ -43,7 +45,7 @@
             expanded: true,
             children: [
               {
-                title: '考勤  20%',
+                title: '考勤  30%',
                 expanded: true,
                 children: [
                   {
@@ -54,7 +56,7 @@
                 ]
               },
               {
-                title: '平时作业  40%',
+                title: '平时作业  30%',
                 expanded: true,
                 children: [
                   {
@@ -69,7 +71,7 @@
                 expanded: true,
                 children: [
                   {
-                    title: '在学期末参加课堂演讲的同学，有加分',
+                    title: '在学期末参加课堂演讲的同学，根据表现和内容打分',
                     expanded: true,
                     children: []
                   }
@@ -80,8 +82,14 @@
           {
             title: '考试成绩 70%',
             icon: 'edit',
-            expanded: false,
-            children: []
+            expanded: true,
+            children: [
+              {
+                title: '由于课程内容量大面广,所以选择开卷考试 ',
+                expanded: true,
+                children: []
+              }
+            ]
           }
         ]
       }

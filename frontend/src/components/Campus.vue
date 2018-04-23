@@ -1,9 +1,9 @@
 <template lang="pug">
   //参考文献，专题导读，前沿视点
-  div.layout-padding
-    div.row.xs-gutter
+  div.row.justify-center
+    div.row.col-md-10.col-lg-10.xs-gutter
       div.col-lg-6.col-md-12.col-sm-12
-        q-card.col-12
+        q-card.col-12.bg-white
           q-card-title 参考文献
             span(slot="subtitle") 领域里优秀的论文
           q-card-separator
@@ -13,7 +13,7 @@
                 q-item-side {{index+1}}
                 q-item-main(label-lines="1" :label='paperList.title') 
                 q-item-side(color="blue-4") {{paperList.time}}
-        q-card.col-12
+        q-card.col-12.bg-white
           q-card-title 前沿视点
             span(slot="subtitle") 化学界发生的一些新鲜新闻与热点
           q-card-separator
@@ -24,7 +24,7 @@
                 q-item-main(label-lines="1" :label='nameList.title') 
                 q-item-side(color="blue-4") {{nameList.time}}
       div.col-lg-6.col-md-12.col-sm-12
-        q-card.col-12
+        q-card.col-12.bg-white
           q-card-title 专题导读
             span(slot="subtitle") 专题阅读材料扩展
           q-card-separator

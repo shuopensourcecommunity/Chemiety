@@ -1,21 +1,23 @@
 <template lang="pug">
   //if you want automatic padding use "layout-padding" class
-  div.layout-padding
-    p
-      big 课程大纲
-    q-stepper(vertical='', done="", v-model="currentStep", ref="stepper", color='secondary')
-      q-step(:title='chapter.name',
-              :default="(index == 0) ? 'true' : 'false'",
-              v-for="(chapter, index) in chapters",
-              :key="chapter",
-              :name='index')
-        q-list(no-border="")
-          q-item(v-for="(directory, index) in chapter.directories", :key="directory")
-            q-item-main
-              q-item-title {{index + 1}} {{directory}}
-        q-stepper-navigation
-          q-btn(color="secondary", @click="$refs.stepper.next()") Next
-          q-btn(color="secondary", @click="$refs.stepper.previous()", flat="") Back
+  div.row.justify-center.layout
+    div.row.col-md-10.col-lg-10
+      div.col-12
+        p
+          big 课程大纲
+        q-stepper(vertical='', done="", v-model="currentStep", ref="stepper", color='secondary').bg-white
+          q-step(:title='chapter.name',
+                  :default="(index == 0) ? 'true' : 'false'",
+                  v-for="(chapter, index) in chapters",
+                  :key="chapter",
+                  :name='index')
+            q-list(no-border="")
+              q-item(v-for="(directory, index) in chapter.directories", :key="directory")
+                q-item-main
+                  q-item-title {{index + 1}} {{directory}}
+            q-stepper-navigation
+              q-btn(color="secondary", @click="$refs.stepper.next()") Next
+              q-btn(color="secondary", @click="$refs.stepper.previous()", flat="") Back
 
 </template>
 

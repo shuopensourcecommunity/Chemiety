@@ -11,6 +11,7 @@ public class Comment {
     @Id
     private String commentId;
 
+    @Column(columnDefinition = )
     private User postUser;
 
     @Column(columnDefinition = "TEXT")

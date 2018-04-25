@@ -4,7 +4,7 @@ package cn.kastner.chemiety.domain;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -13,43 +13,48 @@ public class User {
     public static final String CUR_USER = "currentUser";
 
     @Id
-    private String userId;
+    private Long id;
+    private String username;
+    private String password;
+    private String passwordConfirm;
+    private Set<Role> roles;
 
-    private String userName;
-
-    private String userPassword;
-
-    public User (String userName, String userPassword) {
-        this.userId = UUID.randomUUID().toString();
-        this.userName = userName;
-        this.userPassword = userPassword;
+    public User (String name, String password) {
+        this.username = name;
+        this.password = password;
     }
 
-    public User () {
-        this.userId = UUID.randomUUID().toString();
+
+
+    public Long getId() {
+        return id;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public String getUsername() {
+        return username;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getPassword() {
+        return password;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
     }
 }

@@ -21,14 +21,14 @@ public class Post {
     }
 
     public Post () {
-        this.postId = UUID.randomUUID().toString();
+        super();
         this.commentNumber = 0;
         this.createDate = new Date();
-        this.comments = null;
     }
 
     @Id
-    private String postId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long postId;
 
     @Column(columnDefinition = "TEXT")
     private String content;
@@ -36,20 +36,17 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
-    @OneToMany
-    private List<Comment> comments;
-
     private int commentNumber;
 
-    private User postUser;
+    private Long userId;
 
     private String title;
 
-    public String getPostId() {
+    public Long getPostId() {
         return postId;
     }
 
-    public void setPostId(String postId) {
+    public void setPostId(Long postId) {
         this.postId = postId;
     }
 
@@ -77,21 +74,6 @@ public class Post {
         this.commentNumber = commentNumber;
     }
 
-    public User getPostUser() {
-        return postUser;
-    }
-
-    public void setPostUser(User postUser) {
-        this.postUser = postUser;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 
     public String getTitle() {
         return title;
@@ -99,5 +81,13 @@ public class Post {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

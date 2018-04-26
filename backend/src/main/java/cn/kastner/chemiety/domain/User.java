@@ -1,9 +1,7 @@
 package cn.kastner.chemiety.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
@@ -12,26 +10,37 @@ public class User {
 
     public static final String CUR_USER = "currentUser";
 
-    @Id
-    private Long id;
-    private String username;
-    private String password;
-    private String passwordConfirm;
-    private Set<Role> roles;
-
-    public User (String name, String password) {
-        this.username = name;
-        this.password = password;
+    public enum Role {
+        TEACHER,
+        STUDENT
     }
 
-
-
-    public Long getId() {
-        return id;
+    public Role getRoles() {
+        return roles;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -50,11 +59,29 @@ public class User {
         this.password = password;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long userId;
+
+    private String username;
+
+    private String password;
+
+    private Gender gender;
+
+    private Role roles;
+
+    public User () {
+
     }
 
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public User (String name, String password) {
+        super();
+        this.username = name;
+        this.password = password;
     }
+
+
+
+
 }

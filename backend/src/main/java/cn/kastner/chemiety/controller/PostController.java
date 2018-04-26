@@ -8,9 +8,11 @@ import cn.kastner.chemiety.repository.PostRepository;
 import cn.kastner.chemiety.util.NetResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
+@RestController
 public class PostController {
 
     @Autowired
@@ -18,6 +20,9 @@ public class PostController {
 
     @Autowired
     CommentRepository commentRepository;
+
+    @Autowired
+    NetResult netResult;
 
     /**
      * @param post {
@@ -38,7 +43,7 @@ public class PostController {
             if (user != null) {
                 if (post.getContent() != null &&
                         post.getTitle() != null) {
-                    post.setPostUser(user);
+                    post.setUserId(user.getUserId());
                     postRepository.save(post);
                     netResult.status = 0;
                     netResult.result = "发表成功！";
@@ -70,7 +75,7 @@ public class PostController {
         User user = (User)session.getAttribute(User.CUR_USER);
         if (user != null) {
             if (comment.getContent() != null) {
-                comment.setPostUser(user);
+                comment.setUserId(user.getUserId());
                 commentRepository.save(comment);
                 netResult.status = 0;
                 netResult.result = "评论成功！";

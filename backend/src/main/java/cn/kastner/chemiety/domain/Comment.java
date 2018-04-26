@@ -8,26 +8,37 @@ import java.util.Date;
 @Table(name = "comment")
 public class Comment {
 
+    /**
+     * 评论id 主键
+     */
     @Id
-    private String commentId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long commentId;
 
-    @Column(columnDefinition = )
-    private User postUser;
+    /**
+     * 发布用户id 外键
+     */
+    private Long userId;
 
+    /**
+     * 评论内容
+     */
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
-    private Post post;
+    /**
+     * 帖子id 外键
+     */
+    private Long postId;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
 
-    public String getCommentId() {
+    public Long getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(String commentId) {
+    public void setCommentId(Long commentId) {
         this.commentId = commentId;
     }
 
@@ -47,19 +58,20 @@ public class Comment {
         this.createDate = createDate;
     }
 
-    public User getPostUser() {
-        return postUser;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setPostUser(User postUser) {
-        this.postUser = postUser;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public Post getPost() {
-        return post;
+    public Long getPostId() {
+        return postId;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 }

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.row.justify-center
+  div.row.justify-center.layout-padding
     div.row.col-md-10.col-lg-10
       div(v-for="(introList,index) in introLists").col-12.margin-top
         q-card(id="introList").bg-white

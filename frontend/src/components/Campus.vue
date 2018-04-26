@@ -1,6 +1,6 @@
 <template lang="pug">
   //参考文献，专题导读，前沿视点
-  div.row.justify-center
+  div.row.justify-center.layout-padding
     div.row.col-md-10.col-lg-10.xs-gutter
       div.col-lg-6.col-md-12.col-sm-12
         q-card.col-12.bg-white
@@ -184,7 +184,7 @@ export default {
 
 <style lang="stylus">
   .layout-padding
-    padding 50
+    padding-top 50
   .titleBold
     font-weight bold
 </style>

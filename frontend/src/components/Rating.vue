@@ -60,6 +60,11 @@
                 expanded: true,
                 children: [
                   {
+                    title: '随堂测试',
+                    expanded: true,
+                    children: []
+                  },
+                  {
                     title: '每周如果老师有布置作业，认真完成并上交。完成优秀，即有加分',
                     expanded: true,
                     children: []
@@ -72,6 +77,17 @@
                 children: [
                   {
                     title: '在学期末参加课堂演讲的同学，根据表现和内容打分',
+                    expanded: true,
+                    children: []
+                  }
+                ]
+              },
+              {
+                title: '上课积极发言',
+                expanded: true,
+                children: [
+                  {
+                    title: '上课积极发言平时分会在原有基础上进行加分',
                     expanded: true,
                     children: []
                   }

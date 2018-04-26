@@ -1,49 +1,135 @@
 <template lang="pug">
   //if you want automatic padding use "layout-padding" class
-  div.row.justify-center.layout
+  div.row.justify-center.layout-padding
     div.row.col-md-10.col-lg-10
       div.col-12.wrap.flex.row
-        div.col-lg-6.col-md-6.col-xs-12
+        div.col-xs-12.col-md-6.col-lg-3
           q-card.bg-white
             q-card-media(overlay-position="top").text-center
-              img(src="statics/head.jpg").responsive
+              img(src="statics/teacher/03.jpg").responsive
               q-card-title 陆文聪
                 span(slot="subtitle") 上海大学理学院副院长
             q-card-separator
             q-list.separator
               q-collapsible(icon="account circle" label="简介")
-                p   陆文聪，教授，博士，理学院副院长，材料学博导</br>
-                  |   专业：物理化学</br>
-                  |   主要研究领域：化学数据挖掘，材料设计、工业优化</br>
-                  |   科研获奖：用于建模优化和故障诊断的数据挖掘技术，中国高校科学技术二等奖（2002年）</br>
-                  |   荣誉称号：2001年、2004年获上海市育才奖</br>
-                  |   现兼职：中国化学会计算机化学委员会委员、上海市分子科学研究会理事长、《计算机与应用化学》执行编委</br>
-                  |   多年来一直从事化学数据挖掘，材料设计、工业优化的研究工作，曾先后应邀访问匈牙利Eotvos Loránd University和俄罗斯科学院巴依科夫冶金和材料科学研究所等，并进行科研合作。
-        div.col-lg-6.col-md-6.col-xs-12
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77486&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>       
           q-card.bg-white
             q-card-media(overlay-position="top").text-center
-              img(src="statics/head.jpg").responsive
-              q-card-title 李敏杰
-                span(slot="subtitle") 上海大学理学院化学系副教授
+              img(src="statics/teacher/01.jpg").responsive
+              q-card-title 丁亚萍
+                span(slot="subtitle") 教授，博导
             q-card-separator
             q-list.separator
               q-collapsible(icon="account circle" label="简介")
-                p   李敏杰(女)，副教授，研究生导师 </br>
-                  |   主要研究领域：计算化学 物理有机化学</br>
-                  |   讲授课程：物理化学, 实验设计与化工数据处理, Matlab在化学化工中的应用，化学与社会，药物与健康，物理化学实验
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77481&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+          q-card.bg-white
+          q-card-media(overlay-position="top").text-center
+            img(src="statics/teacher/02.jpg").responsive
+            q-card-title 许斌
+              span(slot="subtitle") 教授
+          q-card-separator
+          q-list.separator
+            q-collapsible(icon="account circle" label="简介")
+              p   <a href="http://www.xubin.shu.edu.cn/Default.aspx">更多信息请进入官网</a>
+        div.col-xs-12.col-md-6.col-lg-3
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/11.jpg").responsive
+              q-card-title 李敏杰
+                span(slot="subtitle") 讲师
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77517&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/06.jpg").responsive
+              q-card-title 丁益民 
+                span(slot="subtitle") 副教授/化学系副主任
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77507&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/07.jpg").responsive
+              q-card-title 张敏 
+                span(slot="subtitle") 副教授/理学院工会主席
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77533&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+        div.col-xs-12.col-md-6.col-lg-3
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/08.jpg").responsive
+              q-card-title 李丽 
+                span(slot="subtitle") 	副教授
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77516&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/12.jpg").responsive
+              q-card-title 李健     
+                span(slot="subtitle") 副教授
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77533&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/10.jpg").responsive
+              q-card-title 洪玲
+                span(slot="subtitle") 	副教授
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77512&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>
+
+        div.col-xs-12.col-md-6.col-lg-3
+          q-card.bg-white
+          q-card-media(overlay-position="top").text-center
+            img(src="statics/teacher/04.jpg").responsive
+            q-card-title 陈雅丽
+              span(slot="subtitle") 教授/化学系党总支书记
+          q-card-separator
+          q-list.separator
+            q-collapsible(icon="account circle" label="简介")
+              p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=76245&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>   
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/09.jpg").responsive
+              q-card-title 包新华   
+                span(slot="subtitle") 教授
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p  <a href="http://www.chem.shu.edu.cn/Default.aspx?tabid=12781">更多信息请进入官网</a>
+          q-card.bg-white
+            q-card-media(overlay-position="top").text-center
+              img(src="statics/teacher/13.jpg").responsive
+              q-card-title 罗立强
+                span(slot="subtitle") 	教授
+            q-card-separator
+            q-list.separator
+              q-collapsible(icon="account circle" label="简介")
+                p   <a href="http://www.oldscicol.shu.edu.cn/Default.aspx?tabid=7573&ctl=Detail&mid=12751&Id=77518&SkinSrc=[L]Skins/lixueyuan11/lixueyuan11">更多信息请进入官网</a>  
 </template>
 
 <script>
   export default {
     name: 'teachers',
     data () {
-      return {}
+      return {
+      }
     }
   }
 </script>
 
 <style lang="stylus">
   .layout-padding
-    padding 50
+    padding-top 50
 
 </style>

@@ -15,5 +15,5 @@ export default {
 
 <style lang="stylus">
 .layout-padding
-  padding 50
+  padding-top 50
 </style>

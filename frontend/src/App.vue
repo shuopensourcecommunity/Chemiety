@@ -3,7 +3,7 @@
   <q-layout
     ref="layout"
     view="lHh Lpr fff"
-    left-breakpoint=100000
+    :left-breakpoint=100000
     :left-class="{'bg-grey-2': true}"
   >
     <q-toolbar slot="header" color="blue-grey-10">

@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.row.justify-center.layout
+  div.row.justify-center.layout-padding
     div.row.col-md-10.col-lg-10
       div.col-12
         h4.caption 成果展示
@@ -88,5 +88,5 @@
 
 <style lang="stylus">
   .layout-padding
-    padding 50
+    padding-top 50
 </style>

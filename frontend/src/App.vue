@@ -62,7 +62,7 @@
         <q-list-header>课外学习</q-list-header>
         <q-side-link  item to="/campus">
           <q-item-side icon="book"/>
-          <q-item-main label="学习园地" sublabel="place_holder"/>
+          <q-item-main label="学习园地" sublabel="老师推荐阅读资料"/>
         </q-side-link>
         <q-side-link  item to="/gallery">
           <q-item-side icon="slideshow"/>
@@ -70,17 +70,17 @@
         </q-side-link>
         <q-side-link  item to="/discussion">
           <q-item-side icon="question answer"/>
-          <q-item-main label="讨论区" sublabel="place_holder"/>
+          <q-item-main label="讨论区" sublabel="问题发布与讨论"/>
         </q-side-link>
         <q-item-separator/>
-        <q-list-header>作业与考试</q-list-header>
+        <q-list-header>作业</q-list-header>
         <q-side-link  item to="/assignment">
           <q-item-side icon="assignment"/>
-          <q-item-main label="测验和作业" sublabel="place_holder"/>
+          <q-item-main label="作业" sublabel="作业"/>
         </q-side-link>
         <q-side-link  item to="/test">
           <q-item-side icon="assignment turned in"/>
-          <q-item-main label="课程考试" sublabel="place_holder"/>
+          <q-item-main label="课程考试" sublabel="考试资料"/>
         </q-side-link>
       </q-list>
     </div>

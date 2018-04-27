@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.text.html.HTML;
 
 @RestController
 public class UserController {
@@ -87,6 +88,19 @@ public class UserController {
             netResult.result = "数据库中已有！";
             return netResult;
         }
+    }
+
+    @RequestMapping(value = "/getUserInfo")
+    public NetResult getUserInfo (HttpSession session) {
+        User user = (User) session.getAttribute(User.CUR_USER);
+        if (user != null) {
+            netResult.status = 0;
+            netResult.result = user;
+        } else {
+            netResult.status = -1;
+            netResult.result = "未登录或登录已过期！";
+        }
+        return netResult;
     }
 
 

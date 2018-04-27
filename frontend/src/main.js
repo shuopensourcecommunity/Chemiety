@@ -79,7 +79,7 @@ Quasar.start(() => {
         }
         else {
           // 否则跳转到登录后的页面
-          this.$router.push('/gallery')
+          this.$router.push('/')
         }
       }
     }

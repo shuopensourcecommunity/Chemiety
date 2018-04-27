@@ -38,7 +38,7 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date createDate;
 
     private int commentNumber;

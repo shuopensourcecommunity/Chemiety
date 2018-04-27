@@ -44,12 +44,13 @@ export default {
             withCredentials: true
           })
             .then(res => {
-              alert(this.getCookie('session'))
               if (res.data.result.roles === 'TEACHER') {
                 window.location.href = 'http://localhost:8080/admin/index'
+                this.setCookie('role', 'TEACHER', 1)
               }
               else {
                 window.location.href = 'http://localhost:8081/'
+                this.setCookie('role', 'STUDENT', 1)
               }
               console.log(res.data)
             })

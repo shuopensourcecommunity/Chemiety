@@ -42,7 +42,7 @@ Vue.prototype.delCookie = (name) => {
   }
 }
 axios.defaults.withCredentials = true
-Vue.prototype.$axios = axios
+// Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(Quasar, {
@@ -74,14 +74,14 @@ Quasar.start(() => {
       checkLogin () {
         // 检查是否存在session
         // cookie操作方法在源码里有或者参考网上的即可
-        if (!this.getCookie('session')) {
+        if (!this.getCookie('role')) {
           // 如果没有登录状态则跳转到登录页
           this.$router.push('/login')
         }
-        else {
-          // 否则跳转到登录后的页面
-          this.$router.push('/')
-        }
+        // else {
+        //   // 否则跳转到登录后的页面
+        //   this.$router.push('/')
+        // }
       }
     }
   })

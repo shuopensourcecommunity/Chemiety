@@ -75,4 +75,17 @@ public class InfoController {
         }
         return netResult;
     }
+
+    @RequestMapping(value = "/getFirstInfo")
+    public NetResult getFirstInfo () {
+        List<Info> infos = infoRepository.findByContentIsNotNull();
+        if (infos.size() != 0) {
+            netResult.status = 0;
+            netResult.result = infos.get(infos.size());
+        } else {
+            netResult.status = -1;
+            netResult.result = "数据异常！";
+        }
+        return netResult;
+    }
 }

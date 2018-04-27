@@ -29,32 +29,37 @@
             </el-menu>
         </el-header>
         <el-main>
-            <el-card>
-                <div slot="header" class="clearfix">
-                    <span>新建公告</span>
-                </div>
-                <div class="text item">
-                    <el-input
-                            type="textarea"
-                            margin-bottom="20px"
-                            autosize
-                            placeholder="请输入内容"
-                            v-model="infoInput">
-                    </el-input>
-                    <el-button type="primary" @click="createInfo" style="margin: 15px">发布</el-button>
-                </div>
-            </el-card>
-            <div v-for="info in infos" style="padding-top: 30px">
-                <el-card>
-                    <div slot="header" class="clearfix">
-                        <span>{{info.createDate}}</span>
-                        <el-button style="float: right; padding: 3px 0" type="text" @click="open">回复</el-button>
+            <el-row type="flex" justify="center">
+                <el-col :span="10">
+                    <el-card>
+                        <div slot="header" class="clearfix">
+                            <span>新建公告</span>
+                        </div>
+                        <div class="text item">
+                            <el-input
+                                    type="textarea"
+                                    margin-bottom="20px"
+                                    autosize
+                                    placeholder="请输入内容"
+                                    v-model="infoInput">
+                            </el-input>
+                            <el-button type="primary" @click="createInfo" style="margin: 15px">发布</el-button>
+                        </div>
+                    </el-card>
+                    <div v-for="info in infos" style="padding-top: 30px">
+                        <el-card>
+                            <div slot="header" class="clearfix">
+                                <span>{{info.createDate}}</span>
+                                <el-button style="float: right; padding: 3px 0" type="text" @click="open">回复</el-button>
+                            </div>
+                            <div class="text item">
+                                {{info.content}}
+                            </div>
+                        </el-card>
                     </div>
-                    <div class="text item">
-                        {{info.content}}
-                    </div>
-                </el-card>
-            </div>
+                </el-col>
+            </el-row>
+
 
         </el-main>
     </el-container>
@@ -76,24 +81,6 @@
             this.getInfos()
         },
         methods: {
-            open3() {
-                this.$prompt('请输入邮箱', '提示', {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    inputPattern: /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-                    inputErrorMessage: '邮箱格式不正确'
-                }).then(({ value }) => {
-                    this.$message({
-                        type: 'success',
-                        message: '你的邮箱是: ' + value
-                    });
-                }).catch(() => {
-                    this.$message({
-                        type: 'info',
-                        message: '取消输入'
-                    });
-                });
-            },
             getInfos() {
                 axios({
                     url: '/getAllInfo',
@@ -116,11 +103,49 @@
                     }
                 })
                     .then(res => {
-                        console.log(res)
+                        if (res.data.status == 0) {
+                            this.$message({
+                                message: '发布公告成功',
+                                type: 'success'
+                            });
+                        } else {
+                            this.$message({
+                                message: res.data.result,
+                                type: 'error'
+                            });
+                        }
                     })
                     .catch(err => {
-                        console.log(err)
+                        this.$message({
+                            message: '未知错误',
+                            type: 'error'
+                        });
                     })
+                this.infos.push({
+                    createDate: this.getCurrentDate (),
+                    content: this.infoInput
+                })
+            },
+            getCurrentDate () {
+                let now = new Date();
+
+                let year = now.getFullYear();       //年
+                let month = now.getMonth() + 1;     //月
+                let day = now.getDate();            //日
+
+                let clock = year + "-";
+
+                if(month < 10)
+                    clock += "0";
+
+                clock += month + "-";
+
+                if(day < 10)
+                    clock += "0";
+
+                clock += day + " ";
+
+                return(clock);
             }
         }
     })

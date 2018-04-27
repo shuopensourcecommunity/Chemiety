@@ -1,9 +1,12 @@
 package cn.kastner.chemiety.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import cn.kastner.chemiety.domain.User;
 import javax.servlet.http.HttpSession;
+import javax.xml.ws.Response;
+
 
 @Controller
 @RequestMapping(value = "/admin")

@@ -1,6 +1,9 @@
 package cn.kastner.chemiety.domain;
 
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
@@ -81,6 +84,7 @@ public class User {
     private Role roles;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Post> posts;
 
     public User () {

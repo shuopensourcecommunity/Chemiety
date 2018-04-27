@@ -93,6 +93,7 @@ public class UserController {
     @RequestMapping(value = "/getUserInfo")
     public NetResult getUserInfo (HttpSession session) {
         User user = (User) session.getAttribute(User.CUR_USER);
+        System.out.println(user);
         if (user != null) {
             netResult.status = 0;
             netResult.result = user;
@@ -102,6 +103,5 @@ public class UserController {
         }
         return netResult;
     }
-
 
 }

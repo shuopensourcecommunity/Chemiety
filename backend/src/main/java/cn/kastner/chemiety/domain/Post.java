@@ -1,6 +1,8 @@
 package cn.kastner.chemiety.domain;
 
 import cn.kastner.chemiety.repository.PostRepository;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,6 +49,7 @@ public class Post {
     private String title;
 
     @OneToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Comment> comments;
 
     public Long getPostId() {

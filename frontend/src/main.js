@@ -41,7 +41,8 @@ Vue.prototype.delCookie = (name) => {
     document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
   }
 }
-
+axios.defaults.withCredentials = true
+Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.use(Quasar, {

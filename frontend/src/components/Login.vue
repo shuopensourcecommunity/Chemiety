@@ -24,24 +24,38 @@ export default {
       axios({
         url: 'http://localhost:8080/login',
         method: 'POST',
-        param: {
+        params: {
           username: this.username,
           password: this.password
         },
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+          'Content-Type': 'application/json;charset=utf-8'
         },
         withCredentials: true
       })
         .then(res => {
           console.log(res.data)
-          console.log(this.getCookie('session').getAttribute('currentUser'))
-          if (this.getCookie('session').getAttribute('currentUser') === 1) {
-            window.location.href = 'http://localhost:8080/admin/index'
-          }
-          else {
-            this.$router.push('/')
-          }
+          axios({
+            url: 'http://localhost:8080/getUserInfo',
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            },
+            withCredentials: true
+          })
+            .then(res => {
+              alert(this.getCookie('session'))
+              if (res.data.result.roles === 'TEACHER') {
+                window.location.href = 'http://localhost:8080/admin/index'
+              }
+              else {
+                window.location.href = 'http://localhost:8081/'
+              }
+              console.log(res.data)
+            })
+            .catch(err => {
+              console.log(err)
+            })
         })
         .catch(err => {
           console.log(err)
@@ -53,3 +67,14 @@ export default {
 
 <style lang="stylus">
 </style>
+
+// @Path("/findAll")
+// @Produces ({MediaType.APPLICATION_JSON })
+// public List<Product> findAll() {
+//     List<Product> result  = new ArrayList<Product>();
+//     result.add(new Product(...));
+//     return Response.ok().entity(new GenericEntity<List<Product>>(result) {})
+//         .header(“Access-Control-Allow-Origin”, “*”)
+//         .header(“Access-Control-Allow-Methods”, “GET, POST, DELETE, PUT, OPTIONS, HEAD”)
+//         .build();
+// }

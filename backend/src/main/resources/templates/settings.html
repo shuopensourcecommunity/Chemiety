@@ -9,11 +9,7 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <title>管理员登录</title>
-    <style type="text/css">
-    　　 a { text-decoration: none }
-    　　
-　　 </style>
+    <title>课程设置</title>
 </head>
 <body>
 <div id="app">
@@ -29,8 +25,7 @@
             <el-card>
                 <h1>老师好！</h1>
                 <p>当前时间: {{currentTime}}</p>
-                <p v-show="hasClassTable">下节上课：<span style="color: #67C23A;">2018-04-27 8:00</span></p>
-                <p v-show="!hasClassTable" style="color: #F56C6C;">暂无课程安排，请前往 <a href="/settings">设置</a> </p>
+                课程设置
             </el-card>
         </el-main>
     </el-container>
@@ -41,48 +36,16 @@
         el: '#app',
         data () {
             return {
-                activeIndex: '1',
+                activeIndex: '3',
                 currentTime: '',
                 hasClassTable: false
             }
         },
         created () {
-          this.currentTime = this.getCurrentTime()
+            this.currentTime = this.getCurrentTime()
         },
         methods: {
-            /**
-             * @return {string}
-             */
-            getCurrentTime () {
-                let now = new Date();
 
-                let year = now.getFullYear();       //年
-                let month = now.getMonth() + 1;     //月
-                let day = now.getDate();            //日
-
-                let hh = now.getHours();            //时
-                let mm = now.getMinutes();          //分
-
-                let clock = year + "-";
-
-                if(month < 10)
-                    clock += "0";
-
-                clock += month + "-";
-
-                if(day < 10)
-                    clock += "0";
-
-                clock += day + " ";
-
-                if(hh < 10)
-                    clock += "0";
-
-                clock += hh + ":";
-                if (mm < 10) clock += '0';
-                clock += mm;
-                return(clock);
-            }
         }
     })
 </script>

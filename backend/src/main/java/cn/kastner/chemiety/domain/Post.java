@@ -1,5 +1,7 @@
 package cn.kastner.chemiety.domain;
 
+import cn.kastner.chemiety.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -20,6 +22,7 @@ public class Post {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
+
     public Post () {
         super();
         this.commentNumber = 0;
@@ -38,9 +41,13 @@ public class Post {
 
     private int commentNumber;
 
-    private Long userId;
+    @ManyToOne
+    private User user;
 
     private String title;
+
+    @OneToMany
+    private List<Comment> comments;
 
     public Long getPostId() {
         return postId;
@@ -83,11 +90,19 @@ public class Post {
         this.title = title;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

@@ -15,7 +15,27 @@ public class PageController {
         if (User.Role.TEACHER == user.getRoles()) {
             return "admin";
         } else {
-            return null;
+            return "权限不足";
+        }
+    }
+
+    @RequestMapping(value = "/checkPost")
+    public String checkPost (HttpSession session) {
+        User user = (User) session.getAttribute(User.CUR_USER);
+        if (User.Role.TEACHER == user.getRoles()) {
+            return "checkPost";
+        } else {
+            return "权限不足";
+        }
+    }
+
+    @RequestMapping(value = "/settings")
+    public String settings (HttpSession session) {
+        User user = (User) session.getAttribute(User.CUR_USER);
+        if (User.Role.TEACHER == user.getRoles()) {
+            return "settings";
+        } else {
+            return "权限不足";
         }
     }
 }

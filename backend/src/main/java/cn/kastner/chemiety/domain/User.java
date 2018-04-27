@@ -2,6 +2,7 @@ package cn.kastner.chemiety.domain;
 
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -9,6 +10,14 @@ import java.util.Set;
 public class User {
 
     public static final String CUR_USER = "currentUser";
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
 
     public enum Role {
         TEACHER,
@@ -70,6 +79,9 @@ public class User {
     private Gender gender;
 
     private Role roles;
+
+    @OneToMany
+    private List<Post> posts;
 
     public User () {
 

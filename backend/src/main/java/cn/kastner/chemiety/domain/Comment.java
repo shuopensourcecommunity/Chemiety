@@ -1,6 +1,9 @@
 package cn.kastner.chemiety.domain;
 
 
+import cn.kastner.chemiety.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,6 +11,10 @@ import java.util.Date;
 @Table(name = "comment")
 public class Comment {
 
+
+    public Comment () {
+        this.createDate = new Date();
+    }
     /**
      * 评论id 主键
      */
@@ -18,7 +25,8 @@ public class Comment {
     /**
      * 发布用户id 外键
      */
-    private Long userId;
+    @ManyToOne
+    private User user;
 
     /**
      * 评论内容
@@ -29,7 +37,8 @@ public class Comment {
     /**
      * 帖子id 外键
      */
-    private Long postId;
+    @ManyToOne
+    private Post post;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
@@ -58,20 +67,19 @@ public class Comment {
         this.createDate = createDate;
     }
 
-
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Long getPostId() {
-        return postId;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

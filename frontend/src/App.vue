@@ -84,9 +84,11 @@
         </q-side-link>
       </q-list>
     </div>
-    <router-view>
-
-    </router-view>
+    <transition name="fade">
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
+  </transition>
   </q-layout>
 </template>
 

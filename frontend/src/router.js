@@ -10,6 +10,7 @@ function load (component) {
 
 import Summary from '@/Summary'
 import Introduction from '@/Introduction'
+import Login from '@/Login'
 export default new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
@@ -30,6 +31,10 @@ export default new VueRouter({
     {
       path: '/',
       component: Summary
+    },
+    {
+      path: '/login',
+      component: Login
     },
     {
       path: '/introduction',

@@ -45,22 +45,22 @@ public class PostController {
      */
     @RequestMapping(value = "/postAPost")
     public NetResult postAPost (Post post, HttpSession session) {
-            User user = (User)session.getAttribute(User.CUR_USER);
-            if (user != null) {
-                if (post.getContent() != null &&
-                        post.getTitle() != null) {
-                    post.setUser(user);
-                    postRepository.save(post);
-                    netResult.status = 0;
-                    netResult.result = "发表成功！";
-                } else {
-                    netResult.status = -1;
-                    netResult.result = "帖子内容/主题为空";
-                }
+        User user = (User)session.getAttribute(User.CUR_USER);
+        if (user != null) {
+            if (post.getContent() != null &&
+                    post.getTitle() != null) {
+                post.setUser(user);
+                postRepository.save(post);
+                netResult.status = 0;
+                netResult.result = "发表成功！";
             } else {
-                netResult.status = -2;
-                netResult.result = "登陆状态过期，请重新登录！";
+                netResult.status = -1;
+                netResult.result = "帖子内容/主题为空";
             }
+        } else {
+            netResult.status = -2;
+            netResult.result = "登陆状态过期，请重新登录！";
+        }
         return netResult;
     }
 

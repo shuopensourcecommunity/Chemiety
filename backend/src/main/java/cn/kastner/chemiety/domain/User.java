@@ -22,6 +22,14 @@ public class User {
         this.posts = posts;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public enum Role {
         TEACHER,
         STUDENT
@@ -82,6 +90,8 @@ public class User {
     private Gender gender;
 
     private Role roles;
+
+    private String name;
 
     @OneToMany
     @LazyCollection(LazyCollectionOption.FALSE)

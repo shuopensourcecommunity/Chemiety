@@ -1,64 +1,44 @@
 package cn.kastner.chemiety.controller;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import cn.kastner.chemiety.domain.User;
-import javax.servlet.http.HttpSession;
-import javax.xml.ws.Response;
 
 
 @Controller
-@RequestMapping(value = "/admin")
 public class PageController {
 
-    @RequestMapping(value = "/index")
-    public String index (HttpSession session) {
-        User user = (User) session.getAttribute(User.CUR_USER);
-        if (User.Role.TEACHER == user.getRoles()) {
-            return "admin";
-        } else {
-            return "权限不足";
-        }
+    @RequestMapping(value = "/loginPage")
+    public String loginPage () {
+        return "login";
     }
 
-    @RequestMapping(value = "/checkPost")
-    public String checkPost (HttpSession session) {
-        User user = (User) session.getAttribute(User.CUR_USER);
-        if (User.Role.TEACHER == user.getRoles()) {
-            return "checkPost";
-        } else {
-            return "权限不足";
-        }
+    @RequestMapping(value = "/errorPage")
+    public String error () {
+        return "error";
     }
 
-    @RequestMapping(value = "/settings")
-    public String settings (HttpSession session) {
-        User user = (User) session.getAttribute(User.CUR_USER);
-        if (User.Role.TEACHER == user.getRoles()) {
-            return "settings";
-        } else {
-            return "权限不足";
-        }
+    @RequestMapping(value = "/admin/index")
+    public String index () {
+        return "admin";
     }
 
-    @RequestMapping(value = "/info")
-    public String info (HttpSession session) {
-        User user = (User) session.getAttribute(User.CUR_USER);
-        if (User.Role.TEACHER == user.getRoles()) {
-            return "info";
-        } else {
-            return "权限不足";
-        }
+    @RequestMapping(value = "/admin/checkPost")
+    public String checkPost () {
+        return "checkPost";
     }
 
-    @RequestMapping(value = "/fileUpload")
-    public String fileUpload (HttpSession session) {
-        User user = (User) session.getAttribute(User.CUR_USER);
-        if (User.Role.TEACHER == user.getRoles()) {
-            return "fileUpload";
-        } else {
-            return "权限不足";
-        }
+    @RequestMapping(value = "/admin/settings")
+    public String settings () {
+        return "settings";
+    }
+
+    @RequestMapping(value = "/admin/info")
+    public String info () {
+        return "info";
+    }
+
+    @RequestMapping(value = "/admin/fileUpload")
+    public String fileUpload () {
+        return "fileUpload";
     }
 }

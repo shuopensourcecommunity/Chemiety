@@ -9,7 +9,11 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <title>课程设置</title>
+    <title>权限错误</title>
+    <style type="text/css">
+        　　 a { text-decoration: none }
+        　　
+        　　 </style>
 </head>
 <body>
 <div id="app">
@@ -21,22 +25,11 @@
                 <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
                 <el-menu-item index="4"><a href="/admin/settings">设置</a></el-menu-item>
                 <el-menu-item index="5"><a href="/admin/fileUpload">资料上传</a></el-menu-item>
-
             </el-menu>
         </el-header>
         <el-main>
             <el-card>
-                <h1>老师好！</h1>
-            </el-card>
-            <el-card>
-                <div slot="header" class="clearfix">
-                    <span>课程安排</span>
-                </div>
-                <div>
-                    <el-input style="margin-bottom: 20px;" type="text" placeholder="请输入本学期上课时间 格式如：二 五 1-2"></el-input>
-                    <el-input style="margin-bottom: 20px;" type="text" placeholder="请输入本学期上课老师姓名"></el-input>
-                    <el-input style="margin-bottom: 20px;" type="submit" placeholder="提交"></el-input>
-                </div>
+                <h1>权限错误！</h1>
             </el-card>
         </el-main>
     </el-container>
@@ -47,13 +40,12 @@
         el: '#app',
         data () {
             return {
-                activeIndex: '4',
+                activeIndex: '1',
                 currentTime: '',
                 hasClassTable: false
             }
         },
         created () {
-            this.currentTime = this.getCurrentTime()
         },
         methods: {
 

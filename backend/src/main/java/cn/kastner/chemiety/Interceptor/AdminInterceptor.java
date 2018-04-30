@@ -1,6 +1,5 @@
 package cn.kastner.chemiety.Interceptor;
 
-import com.sun.deploy.net.HttpResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import cn.kastner.chemiety.domain.User;
 

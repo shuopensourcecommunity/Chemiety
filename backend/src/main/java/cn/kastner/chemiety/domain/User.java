@@ -1,6 +1,8 @@
 package cn.kastner.chemiety.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -85,6 +87,7 @@ public class User {
 
     private String username;
 
+    @JsonIgnore
     private String password;
 
     private Gender gender;

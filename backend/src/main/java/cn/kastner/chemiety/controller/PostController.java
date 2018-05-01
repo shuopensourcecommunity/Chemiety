@@ -42,7 +42,7 @@ public class PostController {
      *     -2：用户登陆状态过期或未登录
      * }
      */
-    @RequestMapping(value = "/postAPost")
+    @RequestMapping(value = "/postPost")
     public NetResult postAPost (Post post, HttpSession session) {
         User user = (User)session.getAttribute(User.CUR_USER);
         if (user != null) {
@@ -74,7 +74,7 @@ public class PostController {
      *     -2: 未登录或登陆状态过期
      * }
      */
-    @RequestMapping(value = "/postAComment")
+    @RequestMapping(value = "/postComment")
     public NetResult postAComment (Comment comment, @RequestParam Long postId, HttpSession session) {
         User user = (User)session.getAttribute(User.CUR_USER);
         if (user != null) {
@@ -103,6 +103,9 @@ public class PostController {
         User user = (User)session.getAttribute(User.CUR_USER);
         if (user != null) {
             List<Post> posts = postRepository.findByContentIsNotNull();
+            for (Post post: posts) {
+                post.setComments(commentRepository.findByPost(post));
+            }
             if (null != posts) {
                 netResult.status = 0;
                 netResult.result = posts;
@@ -122,6 +125,9 @@ public class PostController {
         User user = (User) session.getAttribute(User.CUR_USER);
         if (user != null) {
                 List<Post> posts = postRepository.findByUser(user);
+                for (Post post: posts) {
+                    post.setComments(commentRepository.findByPost(post));
+                }
                 if (null != posts) {
                     netResult.status = 0;
                     netResult.result = posts;

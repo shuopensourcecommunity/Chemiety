@@ -21,34 +21,38 @@
                 <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
                 <el-menu-item index="4"><a href="/admin/settings">设置</a></el-menu-item>
                 <el-menu-item index="5"><a href="/admin/fileUpload">资料上传</a></el-menu-item>
-                <el-menu-item index="5"><a href="/logout">登出</a></el-menu-item>
+                <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
             </el-menu>
         </el-header>
         <el-main>
             <el-row type="flex" justify="center">
                 <el-col :span="10">
-                    <el-card class="box-card" v-for="post in posts" style="margin-bottom: 20px">
+                    <el-card class="box-card" v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
                         <div slot="header" class="clearfix">
                             <span>{{post.title}}</span>
                             <el-button style="float: right; padding: 3px 0"
-                                       type="text" @click="post.isShow ? 'false':'true'">回复</el-button>
+                                       type="text" @click="isShowComments(index)">回复</el-button>
                         </div>
                         <div class="text item">
                             {{post.content}}
                         </div>
                         <div>
                             <div v-for="comment in post.comments" :key="comment.content">
-                                <span>{{comment.content}}</span>
+                                <p>{{comment.content}}</p>
+                                <p>{{comment.createDate}}</p>
+                                <p>{{comment.user.name}}</p>
                                 <hr />
                             </div>
                             <el-collapse-transition>
-                                <el-input
-                                        :v-show="post.isShow"
-                                        type="textarea"
-                                        :rows="2"
-                                        placeholder="请输入内容"
-                                        v-model="inputComment">
-                                </el-input>
+                                <div v-show="post.isShow">
+                                    <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder="请输入内容"
+                                            v-model="post.inputComment">
+                                    </el-input>
+                                    <el-button @click="postComment(post.postId, index)">发送</el-button>
+                                </div>
                             </el-collapse-transition>
                         </div>
 
@@ -83,12 +87,42 @@
                 })
                     .then(response => {
                         this.posts = response.data.result;
-                        this.posts.forEach(post => {
-                            post.isShow = false;
-                            post.inputComment = ''
-                        })
+                        this.posts.forEach(post.push({
+                            isShow: false,
+                            inputComment: ''
+                        }))
                     })
                     .catch(error => {
+                        this.$message.error(error)
+                    })
+            },
+            isShowComments (index) {
+                if (this.posts[index].isShow) {
+                    this.$set(this.posts[index], 'isShow', false)
+                } else {
+                    this.$set(this.posts[index], 'isShow', true)
+                }
+            },
+            postComment (postId, index) {
+                axios({
+                    url: '/postComment',
+                    method: 'POST',
+                    params: {
+                        postId: postId,
+                        content: this.posts[index].inputComment
+                    }
+                })
+                    .then( response => {
+                        if (response.data.status == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '评论成功！'
+                            })
+                        } else {
+                            this.$message.error(response.data.result)
+                        }
+                    })
+                    .catch( error => {
                         this.$message.error(error)
                     })
             }

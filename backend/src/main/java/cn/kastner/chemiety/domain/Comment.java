@@ -2,15 +2,25 @@ package cn.kastner.chemiety.domain;
 
 
 import cn.kastner.chemiety.repository.PostRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 @Table(name = "comment")
 public class Comment {
 
+    @InitBinder
+    protected void initBinder (WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
     public Comment () {
         this.createDate = new Date();
@@ -38,6 +48,7 @@ public class Comment {
      * 帖子id 外键
      */
     @ManyToOne
+    @JsonIgnore
     private Post post;
 
     @Temporal(TemporalType.TIMESTAMP)

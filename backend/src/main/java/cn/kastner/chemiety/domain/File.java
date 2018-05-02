@@ -1,9 +1,13 @@
 package cn.kastner.chemiety.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class File {
+
+
+
 
     public enum Type {
         SlIDE,
@@ -25,6 +29,11 @@ public class File {
 
     @Column(columnDefinition = "TEXT")
     private String url;
+
+    @Temporal(TemporalType.DATE)
+    private Date date;
+
+    private String author;
 
     public Long getFileId() {
         return fileId;
@@ -65,4 +74,20 @@ public class File {
     public void setType(Type type) {
         this.type = type;
     }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
 }

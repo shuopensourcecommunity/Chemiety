@@ -37,8 +37,20 @@ public class PageController {
         return "info";
     }
 
-    @RequestMapping(value = "/admin/fileUpload")
-    public String fileUpload () {
-        return "fileUpload";
+    @RequestMapping(value = "/admin/uploadEduFilePage")
+    public String uploadEduFile () {
+        return "uploadEduFile";
     }
+
+    @RequestMapping(value = "/admin/uploadShowFilePage")
+    public String uploadShowFile () {
+        return "uploadShowFile";
+    }
+
+    @RequestMapping(value = "/admin/setReferencePage")
+    public String setReference () {
+        return "setReference";
+    }
+
+
 }

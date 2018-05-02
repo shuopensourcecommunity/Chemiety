@@ -9,11 +9,7 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <title>首页</title>
-    <style type="text/css">
-    　　 a { text-decoration: none }
-    　　
-　　 </style>
+    <title>优秀作品上传</title>
 </head>
 <body>
 <div id="app">
@@ -36,10 +32,27 @@
         </el-header>
         <el-main>
             <el-card>
-                <h1>欢迎，{{user.name}}</h1>
-                <p>当前时间: {{currentTime}}</p>
-                <p v-show="hasClassTable">下节上课：<span style="color: #67C23A;">2018-04-27 8:00</span></p>
-                <p v-show="!hasClassTable" style="color: #F56C6C;">暂无课程安排，请前往 <a href="/admin/settings">设置</a> </p>
+                <div slot="header" class="clearfix">
+                    <span>优秀作品上传</span>
+                </div>
+                <div>
+                    <el-input
+                            placeholder="请输入作者姓名，用逗号分隔"
+                            v-model="uploadParam.author"
+                            clearable>
+                    </el-input>
+                    <el-upload
+                            ref="upload"
+                            action="/admin/uploadShowFile"
+                            :data="uploadParam"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :file-list="fileList"
+                            :auto-upload="false">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                    </el-upload>
+                </div>
             </el-card>
         </el-main>
     </el-container>
@@ -50,61 +63,28 @@
         el: '#app',
         data () {
             return {
-                activeIndex: '1',
+                activeIndex: '5',
                 currentTime: '',
-                user: {},
-                hasClassTable: false
+                hasClassTable: false,
+                action: '',
+                uploadParam: {
+                    author: ''
+                },
+
+                fileList: []
             }
         },
         created () {
-            this.getCurrentTime()
-            this.getUserInfo()
         },
         methods: {
-            /**
-             * @return {string}
-             */
-            getCurrentTime () {
-                let now = new Date();
-
-                let year = now.getFullYear();       //年
-                let month = now.getMonth() + 1;     //月
-                let day = now.getDate();            //日
-
-                let hh = now.getHours();            //时
-                let mm = now.getMinutes();          //分
-
-                let clock = year + "-";
-
-                if(month < 10)
-                    clock += "0";
-
-                clock += month + "-";
-
-                if(day < 10)
-                    clock += "0";
-
-                clock += day + " ";
-
-                if(hh < 10)
-                    clock += "0";
-
-                clock += hh + ":";
-                if (mm < 10) clock += '0';
-                clock += mm;
-                this.currentTime = clock;
+            submitUpload() {
+                this.$refs.upload.submit();
             },
-            getUserInfo () {
-                axios({
-                    url: '/getUserInfo',
-                    method: 'POST',
-                })
-                    .then(response => {
-                        this.user = response.data.result
-                    })
-                    .catch(error =>{
-                        this.$message.error(error)
-                    })
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
             }
         }
     })

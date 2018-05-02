@@ -16,7 +16,7 @@ div.row.justify-center.layout
           br
           p {{ content }}
         q-card-separator.card-separator
-        q-item(link='', to='/introduction')
+        q-item(link='', to='/info')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main

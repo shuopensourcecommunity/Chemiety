@@ -1,8 +1,8 @@
 <template lang="pug">
   //if you want automatic padding use "layout-padding" class
   div.layout-padding
-    div.row
-      div.col-lg-6.col-md-6.offset-3(v-for="(post) in posts")
+    q-page.row
+      div.offset-3.col-lg-6.col-md-6(v-for="(post) in posts")
         q-card
           q-card-title {{ post.title }}
           q-card-main.text-faded 发布者：{{ post.user.name }}&nbsp&nbsp&nbsp发布时间：{{post.createDate}}
@@ -20,7 +20,16 @@
           //-       q-item-main
           //-         q-item-tile.font-small(label="") {{ comment.commentText}}
           //-         q-item-tile(sublabel="") {{ comment.commenter }}&nbsp&nbsp&nbsp发布时间：{{ comment.commentDate }}
-     
+      q-page-sticky(position="top-right" :offset="[18, 18]")
+        q-btn(fab-mini round color="primary" icon="add" class="animate-pop")
+      q-modal
+        q-modal-layout(
+          header-style="min-height: 100px"
+          content-class="{'bg-primary': isPrimary, 'some-class': someBoolean}"
+          footer-class="bg-primary some-class"
+          footer-style="{fontSize: '24px', fontWeight: 'bold'}"
+        )
+        
 </template>
 
 <script>

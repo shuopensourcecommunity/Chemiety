@@ -14,7 +14,7 @@ div.row.justify-center.layout
             q-item-tile(right='', icon='more vert')
         q-card-main
           br
-          p 本周五(1月26日)进行测验。
+          p {{ content }}
         q-card-separator.card-separator
         q-item(link='', to='/introduction')
           q-item-side
@@ -149,54 +149,72 @@ div.row.justify-center.layout
 </template>
 
 <script>
-  export default {
-    name: 'summary',
-    data () {
-      return {
-        presentations: {
-          src: [
-            'statics/Run+Music/Slide1.JPG',
-            'statics/Run+Music/Slide2.JPG',
-            'statics/Run+Music/Slide3.JPG',
-            'statics/Run+Music/Slide4.JPG',
-            'statics/Run+Music/Slide5.JPG',
-            'statics/Run+Music/Slide6.JPG',
-            'statics/Run+Music/Slide7.JPG',
-            'statics/Run+Music/Slide8.JPG'
-          ],
-          topic: 'Running + Music = ?',
-          time: '2016年春季',
-          authorName: '路人甲',
-          title: 'asdaa',
-          description: '开始用队列完成进入，利用临时栈完成调读',
-          stars: '',
-          url: ''
-        },
-        slides: [
-          {
-            type: 'ppt',
-            name: '第二讲',
-            description: '第二讲课件',
-            url: '~/assets/a.pptx'
-          },
-          {
-            type: 'pdf',
-            name: 'sda',
-            description: 'sdadasdas',
-            url: 'sdad'
-          }
+import axios from 'axios'
+export default {
+  name: 'summaryAll',
+  data () {
+    return {
+      content: '',
+      presentations: {
+        src: [
+          'statics/Run+Music/Slide1.JPG',
+          'statics/Run+Music/Slide2.JPG',
+          'statics/Run+Music/Slide3.JPG',
+          'statics/Run+Music/Slide4.JPG',
+          'statics/Run+Music/Slide5.JPG',
+          'statics/Run+Music/Slide6.JPG',
+          'statics/Run+Music/Slide7.JPG',
+          'statics/Run+Music/Slide8.JPG'
         ],
-        docs: []
-      }
+        topic: 'Running + Music = ?',
+        time: '2016年春季',
+        authorName: '路人甲',
+        title: 'asdaa',
+        description: '开始用队列完成进入，利用临时栈完成调读',
+        stars: '',
+        url: ''
+      },
+      slides: [
+        {
+          type: 'ppt',
+          name: '第二讲',
+          description: '第二讲课件',
+          url: '~/assets/a.pptx'
+        },
+        {
+          type: 'pdf',
+          name: 'sda',
+          description: 'sdadasdas',
+          url: 'sdad'
+        }
+      ],
+      docs: []
+    }
+  },
+  created () {
+    this.getFirstInfo()
+  },
+  methods: {
+    getFirstInfo () {
+      axios({
+        url: 'http://localhost:8080/getFirstInfo',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        withCredentials: true
+      })
+        .then(res => {
+          console.log(1)
+          console.log(res.data.result)
+          this.content = res.data.result.content
+        })
     },
-    computed: {
-    },
-    methods: {
-      downloadFile (url) {
-        window.location.href = url
-      }
+    downloadFile (url) {
+      window.location.href = url
     }
   }
+}
 </script>
 
 <style lang="stylus">

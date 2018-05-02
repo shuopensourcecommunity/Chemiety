@@ -5,6 +5,13 @@ import javax.persistence.*;
 @Entity
 public class File {
 
+    public enum Type {
+        SlIDE,
+        DOCUMENT,
+        SHOW,
+        WEBSITE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long fileId;
@@ -14,9 +21,10 @@ public class File {
     @Column(columnDefinition = "TEXT")
     private String path;
 
-    public enum Type {
+    private Type type;
 
-    }
+    @Column(columnDefinition = "TEXT")
+    private String url;
 
     public Long getFileId() {
         return fileId;
@@ -40,5 +48,21 @@ public class File {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

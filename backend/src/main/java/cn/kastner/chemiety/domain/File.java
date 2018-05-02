@@ -10,7 +10,7 @@ public class File {
 
 
     public enum Type {
-        SlIDE,
+        SLIDE,
         DOCUMENT,
         SHOW,
         WEBSITE

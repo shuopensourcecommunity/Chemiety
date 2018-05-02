@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.UIResource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class FileController {
@@ -19,6 +21,10 @@ public class FileController {
 
     @Autowired
     FileRepository fileRepository;
+
+    @Autowired
+    NetResult netResult;
+
 
     @RequestMapping(value = "/admin/uploadEduFile")
     public NetResult upload2(@RequestParam MultipartFile file, @RequestParam int type, HttpSession session) {
@@ -47,7 +53,7 @@ public class FileController {
                 }
                 cn.kastner.chemiety.domain.File.Type classType = null;
                 if (0 == type) {
-                    classType = cn.kastner.chemiety.domain.File.Type.SlIDE;
+                    classType = cn.kastner.chemiety.domain.File.Type.SLIDE;
                 } else if (1 == type) {
                     classType = cn.kastner.chemiety.domain.File.Type.DOCUMENT;
                 }
@@ -130,5 +136,55 @@ public class FileController {
             result.result = "文件为空";
         }
         return result;
+    }
+
+    @RequestMapping(value = "/addWebsite")
+    public NetResult addWebsite (cn.kastner.chemiety.domain.File file) {
+        String name = file.getName();
+        String url = file.getUrl();
+        if (name != null) {
+            if (url != null) {
+                file.setType(cn.kastner.chemiety.domain.File.Type.WEBSITE);
+                file.setDate(new Date());
+                fileRepository.save(file);
+                netResult.status = 0;
+                netResult.result = "添加成功！";
+            } else {
+                netResult.status = -1;
+                netResult.result = "地址为空！";
+            }
+        } else {
+            netResult.status = -2;
+            netResult.result = "名字为空！";
+        }
+        return netResult;
+    }
+
+    @RequestMapping(value = "/getAllFiles")
+    public NetResult getAllSlides (@RequestParam String fileType) {
+        List<cn.kastner.chemiety.domain.File> files;
+        switch (fileType) {
+            case "edu":
+                files = fileRepository.findByTypeOrType(
+                        cn.kastner.chemiety.domain.File.Type.SLIDE,
+                        cn.kastner.chemiety.domain.File.Type.DOCUMENT
+                );
+                break;
+            case "show":
+                files = fileRepository.findByType(
+                        cn.kastner.chemiety.domain.File.Type.SHOW
+                );
+                break;
+            case "website":
+                files = fileRepository.findByType(
+                        cn.kastner.chemiety.domain.File.Type.WEBSITE
+                );
+                break;
+            default:
+                files = null;
+        }
+        netResult.status = 0;
+        netResult.result = files;
+        return netResult;
     }
 }

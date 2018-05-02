@@ -49,7 +49,7 @@ public class Post {
     private String title;
 
     @OneToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @LazyCollection(LazyCollectionOption.TRUE)
     private List<Comment> comments;
 
     public Long getPostId() {

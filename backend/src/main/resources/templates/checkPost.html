@@ -15,25 +15,47 @@
 <div id="app">
     <el-container>
         <el-header>
-            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-                <el-menu-item index="1"><a href="/admin">首页</a></el-menu-item>
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+                <el-menu-item index="1"><a href="/admin/index">首页</a></el-menu-item>
                 <el-menu-item index="2"><a href="/admin/checkPost">帖子管理</a></el-menu-item>
                 <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
                 <el-menu-item index="4"><a href="/admin/settings">设置</a></el-menu-item>
                 <el-menu-item index="5"><a href="/admin/fileUpload">资料上传</a></el-menu-item>
+                <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
             </el-menu>
         </el-header>
         <el-main>
             <el-row type="flex" justify="center">
                 <el-col :span="10">
-                    <el-card class="box-card" v-for="post in posts" style="margin-bottom: 20px">
+                    <el-card class="box-card" v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
                         <div slot="header" class="clearfix">
                             <span>{{post.title}}</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">回复</el-button>
+                            <el-button style="float: right; padding: 3px 0"
+                                       type="text" @click="isShowComments(index)">回复</el-button>
                         </div>
                         <div class="text item">
                             {{post.content}}
                         </div>
+                        <div>
+                            <div v-for="comment in post.comments" :key="comment.content">
+                                <p>{{comment.content}}</p>
+                                <p>{{comment.createDate}}</p>
+                                <p>{{comment.user.name}}</p>
+                                <hr />
+                            </div>
+                            <el-collapse-transition>
+                                <div v-show="post.isShow">
+                                    <el-input
+                                            type="textarea"
+                                            :rows="2"
+                                            placeholder="请输入内容"
+                                            v-model="post.inputComment">
+                                    </el-input>
+                                    <el-button @click="postComment(post.postId, index)">发送</el-button>
+                                </div>
+                            </el-collapse-transition>
+                        </div>
+
                     </el-card>
                 </el-col>
             </el-row>
@@ -49,28 +71,60 @@
                 activeIndex: '2',
                 currentTime: '',
                 hasClassTable: false,
-                posts: [
-                    's'
-                ]
+                posts: []
             }
         },
         created() {
+        },
+        beforeMount () {
             this.getPosts()
         },
         methods: {
-            getPosts() {
+            getPosts () {
                 axios({
                     url: '/getPosts',
                     method: 'POST',
                 })
-                    .then(res => {
-                        this.posts = res.data.result
-                        console.log(this.posts)
+                    .then(response => {
+                        this.posts = response.data.result;
+                        this.posts.forEach(post.push({
+                            isShow: false,
+                            inputComment: ''
+                        }))
                     })
-                    .catch(err => {
-                        console.log(err)
+                    .catch(error => {
+                        this.$message.error(error)
                     })
-
+            },
+            isShowComments (index) {
+                if (this.posts[index].isShow) {
+                    this.$set(this.posts[index], 'isShow', false)
+                } else {
+                    this.$set(this.posts[index], 'isShow', true)
+                }
+            },
+            postComment (postId, index) {
+                axios({
+                    url: '/postComment',
+                    method: 'POST',
+                    params: {
+                        postId: postId,
+                        content: this.posts[index].inputComment
+                    }
+                })
+                    .then( response => {
+                        if (response.data.status == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '评论成功！'
+                            })
+                        } else {
+                            this.$message.error(response.data.result)
+                        }
+                    })
+                    .catch( error => {
+                        this.$message.error(error)
+                    })
             }
         }
     })

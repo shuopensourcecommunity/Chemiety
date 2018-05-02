@@ -5,6 +5,7 @@ import cn.kastner.chemiety.domain.User;
 import cn.kastner.chemiety.util.NetResult;
 import cn.kastner.chemiety.util.StringMD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,7 +36,6 @@ public class UserController {
 //            String passwordMD5 = StringMD5.stringToMD5(loginUser.getPassword());
             System.out.println(user.getPassword());
             System.out.println(loginUser.getPassword());
-//            System.out.println(passwordMD5);
             if (loginUser.getPassword() != null) {
                 if (loginUser.getPassword().equals(user.getPassword())) {
                     netResult.status = 0;
@@ -52,6 +52,7 @@ public class UserController {
         }
         return netResult;
     }
+
 
     /**
      * @param session 会话
@@ -77,8 +78,9 @@ public class UserController {
         if (exUser == null) {
             user.setGender(User.Gender.MALE);
             user.setRoles(User.Role.STUDENT);
-//            String password = StringMD5.stringToMD5(user.getPassword());
-//            user.setPassword(password);
+            String password = user.getPassword();
+            password = String.valueOf(DigestUtils.md5DigestAsHex(password.getBytes()));
+            user.setPassword(password);
             userRepository.save(user);
             netResult.status = 0;
             netResult.result = "创建成功！";
@@ -93,7 +95,7 @@ public class UserController {
     @RequestMapping(value = "/getUserInfo")
     public NetResult getUserInfo (HttpSession session) {
         User user = (User) session.getAttribute(User.CUR_USER);
-        System.out.println(user);
+        user.setPassword("");
         if (user != null) {
             netResult.status = 0;
             netResult.result = user;

@@ -95,7 +95,6 @@ public class UserController {
     @RequestMapping(value = "/getUserInfo")
     public NetResult getUserInfo (HttpSession session) {
         User user = (User) session.getAttribute(User.CUR_USER);
-        user.setPassword("");
         if (user != null) {
             netResult.status = 0;
             netResult.result = user;

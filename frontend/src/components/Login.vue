@@ -10,6 +10,7 @@ div.row.justify-center.layout
 
 <script>
 import axios from 'axios'
+import md5 from 'md5'
 export default {
   name: 'login',
   data () {
@@ -26,7 +27,7 @@ export default {
         method: 'POST',
         params: {
           username: this.username,
-          password: this.password
+          password: md5(this.password)
         },
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -68,14 +69,3 @@ export default {
 
 <style lang="stylus">
 </style>
-
-// @Path("/findAll")
-// @Produces ({MediaType.APPLICATION_JSON })
-// public List<Product> findAll() {
-//     List<Product> result  = new ArrayList<Product>();
-//     result.add(new Product(...));
-//     return Response.ok().entity(new GenericEntity<List<Product>>(result) {})
-//         .header(“Access-Control-Allow-Origin”, “*”)
-//         .header(“Access-Control-Allow-Methods”, “GET, POST, DELETE, PUT, OPTIONS, HEAD”)
-//         .build();
-// }

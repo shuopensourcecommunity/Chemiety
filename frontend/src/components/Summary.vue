@@ -205,7 +205,6 @@ export default {
         withCredentials: true
       })
         .then(res => {
-          console.log(1)
           console.log(res.data.result)
           this.content = res.data.result.content
         })

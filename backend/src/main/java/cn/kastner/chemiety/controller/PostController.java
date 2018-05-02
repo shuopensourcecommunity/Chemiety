@@ -87,9 +87,10 @@ public class PostController {
                 netResult.result = "评论对象异常";
             }else {
                 comment.setUser(user);
+                int commentNumber = exPost.getCommentNumber();
+                exPost.setCommentNumber(++commentNumber);
+                postRepository.save(exPost);
                 comment.setPost(exPost);
-                int commentNumber = comment.getPost().getCommentNumber();
-                comment.getPost().setCommentNumber(++commentNumber);
                 commentRepository.save(comment);
                 netResult.status = 0;
                 netResult.result = "评论成功！";

@@ -33,12 +33,13 @@ public class FileController {
                 }
                 System.out.println("fileName = " + file.getOriginalFilename());
                 System.out.println(path);
-                FileOutputStream out = new FileOutputStream(path + file.getOriginalFilename());
-                System.out.println(path + file.getOriginalFilename());
-                // 目标文件创建输出流
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
+                try (FileOutputStream out = new FileOutputStream(path + file.getOriginalFilename())) {
+                    System.out.println(path + file.getOriginalFilename());
+                    // 目标文件创建输出流
+                    out.write(file.getBytes());
+                    out.flush();
+                    out.close();
+                }
                 String realpath = "/" + type + file.getOriginalFilename();
                 result.status = 0;
                 result.result = realpath;

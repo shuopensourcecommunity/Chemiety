@@ -178,7 +178,6 @@ export default {
     toLink (url) {
       window.location.href = url
     }
-    
   }
 }
 </script>

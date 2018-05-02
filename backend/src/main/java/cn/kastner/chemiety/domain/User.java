@@ -88,6 +88,7 @@ public class User {
     private String username;
 
     @JsonIgnore
+    @Column(columnDefinition = "TEXT")
     private String password;
 
     private Gender gender;

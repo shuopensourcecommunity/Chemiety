@@ -4,7 +4,7 @@ div.row.justify-center.layout
         q-card-title 登录
         q-card-main
             q-input(v-model='username' float-label='请输入学号/工号')
-            q-input(v-model='password' type='password' float-label='请输入密码')
+            q-input(v-model='password' type='password' float-label='请输入密码' @keyup.Enter.native='login')
             q-btn(color='primary' @click='login') 登录
 </template>
 

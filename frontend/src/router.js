@@ -73,6 +73,10 @@ export default new VueRouter({
       component: load('Assignment')
     },
     {
+      path: '/info',
+      component: load('Info')
+    },
+    {
       path: '/test',
       component: load('Test')
     },

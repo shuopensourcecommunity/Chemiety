@@ -19,7 +19,6 @@
                 <el-menu-item index="1"><a href="/admin/index">首页</a></el-menu-item>
                 <el-menu-item index="2"><a href="/admin/checkPost">帖子管理</a></el-menu-item>
                 <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
-                <el-menu-item index="4"><a href="/admin/settings">设置</a></el-menu-item>
                 <el-submenu index="5">
                     <template slot="title">资料设置</template>
                     <el-menu-item index="5-1"><a href="/admin/uploadEduFilePage">课件/文档上传</a></el-menu-item>
@@ -32,44 +31,82 @@
         <el-main>
             <el-row type="flex" justify="center">
                 <el-col :span="10">
-                    <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
+                    <el-card style="margin-bottom: 50px">
                         <div slot="header" class="clearfix">
-                            <span>{{post.title}}</span>
-                            <el-button style="float: right; padding: 3px 0"
-                                       type="text" @click="isShowComments(index)">删除</el-button>
-                            <el-button style="float: right; padding: 3px 0"
-                                       type="text" @click="isShowComments(index)">回复</el-button>
+                            <span>新建帖子</span>
                         </div>
-                        <div style="margin-bottom: 50px">
-                            {{post.content}}
-                        </div>
-                        <p style="color: #909399; text-align: right">{{post.user.name}}</p>
-                        <p style="color: #909399; text-align: right">{{post.createDate}}</p>
-                        <hr />
-                        <p style="color:#67C23A;">评论：</p>
-                        <div>
-                            <div v-for="comment in post.comments" :key="comment.content">
-                                <div style="margin-bottom: 30px">
-                                    <p>{{comment.content}}</p>
-                                    <p style="color: #909399; text-align: right">{{comment.user.name}}</p>
-                                    <p style="color: #909399; text-align: right">{{comment.createDate}}</p>
-                                    <hr />
-                                </div>
-                            </div>
-                            <el-collapse-transition>
-                                <div v-show="post.isShow">
-                                    <el-input
-                                            type="textarea"
-                                            :rows="2"
-                                            placeholder="请输入内容"
-                                            v-model="post.inputComment">
-                                    </el-input>
-                                    <el-button @click="postComment(post.postId, index)">发送</el-button>
-                                </div>
-                            </el-collapse-transition>
-                        </div>
-
+                        <el-form label-position="right" label-width="80px">
+                            <el-form-item label="主题">
+                                <el-input
+                                        type="textarea"
+                                        margin-bottom="20px"
+                                        autosize
+                                        placeholder="请输入主题"
+                                        v-model="postParams.title">
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item label="内容">
+                                <el-input
+                                        type="textarea"
+                                        margin-bottom="20px"
+                                        autosize
+                                        placeholder="请输入内容"
+                                        v-model="postParams.content"
+                                        @keyup.Enter.native="postPost">
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="postPost" style="float:right">发布</el-button>
+                            </el-form-item>
+                        </el-form>
                     </el-card>
+                    <h1>当前帖子列表</h1>
+                    <transition-group name="el-zoom-in-top">
+                        <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
+                            <div slot="header" class="clearfix">
+                                <span>{{post.title}}</span>
+                                <el-button style="float: right; padding: 3px 0; margin-left: 20px"
+                                           type="text" @click="isShowComments(index)">回复</el-button>
+                                <el-button style="float: right; padding: 3px 0; color: #F56C6C;"
+                                           type="text" @click="deletePost(index)">删除</el-button>
+                            </div>
+                            <div style="margin-bottom: 50px">
+                                {{post.content}}
+                            </div>
+                            <p style="color: #909399; text-align: right">{{post.user.name}}</p>
+                            <p style="color: #909399; text-align: right">{{post.createDate}}</p>
+                            <hr />
+                            <p style="color:#67C23A;">评论：</p>
+                            <div>
+                                <div v-for="comment in post.comments" :key="comment.content">
+                                    <div style="margin-bottom: 30px">
+                                        <p>{{comment.content}}</p>
+                                        <p style="color: #909399; text-align: right">{{comment.user.name}}</p>
+                                        <p style="color: #909399; text-align: right">{{comment.createDate}}</p>
+                                        <hr />
+                                    </div>
+                                </div>
+                                <el-collapse-transition>
+                                    <div v-show="post.isShow">
+                                        <el-form label-position="right" label-width="80px">
+                                            <el-form-item label="发表评论">
+                                                <el-input
+                                                        type="textarea"
+                                                        :rows="2"
+                                                        placeholder="请输入内容"
+                                                        v-model="post.inputComment">
+                                                </el-input>
+                                            </el-form-item>
+                                            <el-form-item>
+                                                <el-button @click="postComment(post.postId, index)">评论</el-button>
+                                            </el-form-item>
+                                        </el-form>
+                                    </div>
+                                </el-collapse-transition>
+                            </div>
+                        </el-card>
+                    </transition-group>
+
                 </el-col>
             </el-row>
         </el-main>
@@ -84,6 +121,10 @@
                 activeIndex: '2',
                 currentTime: '',
                 hasClassTable: false,
+                postParams: {
+                    title: '',
+                    content: ''
+                },
                 posts: []
             }
         },
@@ -99,7 +140,7 @@
                     method: 'POST',
                 })
                     .then(response => {
-                        this.posts = response.data.result;
+                        this.posts = response.data.result.reverse();
                         this.posts.forEach(post.push({
                             isShow: false,
                             inputComment: ''
@@ -108,6 +149,31 @@
                     .catch(error => {
                         this.$message.error(error)
                     })
+                this.posts.reverse()
+            },
+            deletePost (index) {
+                this.posts.splice(index, 1)
+                axios({
+                    url: '/admin/deletePost',
+                    method: 'POST',
+                    params: {
+                        postId: this.posts[index].postId
+                    }
+                })
+                    .then( response => {
+                        if (response.data.status == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '删除成功！'
+                            })
+                        } else {
+                            this.$message.error(response.data.result)
+                        }
+                    })
+                    .catch( error => {
+                        this.$message.error(error)
+                    })
+
             },
             isShowComments (index) {
                 if (this.posts[index].isShow) {
@@ -130,6 +196,34 @@
                             this.$message({
                                 type: 'success',
                                 message: '评论成功！'
+                            })
+                        } else {
+                            this.$message.error(response.data.result)
+                        }
+                    })
+                    .catch( error => {
+                        this.$message.error(error)
+                    })
+            },
+            postPost () {
+                this.posts.unshift({
+                    title: this.postParams.title,
+                    content: this.postParams.content,
+                    user: {
+                        name: '我'
+                    },
+                    createDate: '刚刚发表'
+                })
+                axios({
+                    url: '/postPost',
+                    method: 'POST',
+                    params: this.postParams
+                })
+                    .then( response => {
+                        if (response.data.status == 0) {
+                            this.$message({
+                                type: 'success',
+                                message: '发布帖子成功！'
                             })
                         } else {
                             this.$message.error(response.data.result)

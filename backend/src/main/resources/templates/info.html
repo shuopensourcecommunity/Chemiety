@@ -23,7 +23,6 @@
                 <el-menu-item index="1"><a href="/admin/index">首页</a></el-menu-item>
                 <el-menu-item index="2"><a href="/admin/checkPost">帖子管理</a></el-menu-item>
                 <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
-                <el-menu-item index="4"><a href="/admin/settings">设置</a></el-menu-item>
                 <el-submenu index="5">
                     <template slot="title">资料设置</template>
                     <el-menu-item index="5-1"><a href="/admin/uploadEduFilePage">课件/文档上传</a></el-menu-item>
@@ -41,27 +40,34 @@
                         <div slot="header" class="clearfix">
                             <span>新建公告</span>
                         </div>
-                        <div class="text item">
-                            <el-input
-                                    type="textarea"
-                                    margin-bottom="20px"
-                                    autosize
-                                    placeholder="请输入内容"
-                                    v-model="infoInput">
-                            </el-input>
-                            <el-button type="primary" @click="createInfo" style="margin: 15px">发布</el-button>
-                        </div>
+                        <el-form label-position="right" label-width="80px">
+                            <el-form-item label="公告内容">
+                                <el-input
+                                        type="textarea"
+                                        margin-bottom="20px"
+                                        autosize
+                                        placeholder="请输入内容"
+                                        v-model="infoInput">
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="createInfo" style="float:right">发布</el-button>
+                            </el-form-item>
+                        </el-form>
+
                     </el-card>
-                    <div v-for="info in infos" style="padding-top: 30px">
-                        <el-card>
-                            <div slot="header" class="clearfix">
-                                <span>发布日期：{{info.createDate}}</span>
-                            </div>
-                            <div class="text item">
-                                {{info.content}}
-                            </div>
-                        </el-card>
-                    </div>
+                    <transition-group name="el-zoom-in-top">
+                        <div v-for="info in infos" style="padding-top: 30px" :key="info.infoId">
+                            <el-card>
+                                <div slot="header" class="clearfix">
+                                    <span>发布日期：{{info.createDate}}</span>
+                                </div>
+                                <div class="text item">
+                                    {{info.content}}
+                                </div>
+                            </el-card>
+                        </div>
+                    </transition-group>
                 </el-col>
             </el-row>
 
@@ -126,9 +132,10 @@
                             type: 'error'
                         });
                     })
-                this.infos.push({
+                this.infos.unshift({
                     createDate: this.getCurrentDate (),
-                    content: this.infoInput
+                    content: this.infoInput,
+                    infoId: 1000000000
                 })
             },
             getCurrentDate () {

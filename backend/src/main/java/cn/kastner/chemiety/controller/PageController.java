@@ -32,11 +32,6 @@ public class PageController {
         return "checkPost";
     }
 
-    @RequestMapping(value = "/admin/settings")
-    public String settings () {
-        return "settings";
-    }
-
     @RequestMapping(value = "/admin/info")
     public String info () {
         return "info";

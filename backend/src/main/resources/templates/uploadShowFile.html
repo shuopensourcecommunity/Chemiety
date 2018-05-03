@@ -24,66 +24,73 @@
                     <template slot="title">资料设置</template>
                     <el-menu-item index="5-1"><a href="/admin/uploadEduFilePage">课件/文档上传</a></el-menu-item>
                     <el-menu-item index="5-2"><a href="/admin/uploadShowFilePage">优秀作品上传</a></el-menu-item>
-                    <el-menu-item index="5-3"><a href="/admin/setReferencePage">参考链接设置</a></el-menu-item>
+                    <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
                 <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
 
             </el-menu>
         </el-header>
         <el-main>
-            <el-card>
-                <div slot="header" class="clearfix">
-                    <span>优秀作品上传</span>
-                </div>
-                <div>
-                    <el-input
-                            placeholder="请输入作者姓名，用逗号分隔"
-                            v-model="uploadParam.author"
-                            clearable>
-                    </el-input>
-                    <el-upload
-                            ref="upload"
-                            action="/admin/uploadShowFile"
-                            :data="uploadParam"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
-                            :file-list="fileList"
-                            :auto-upload="false">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                    </el-upload>
-                </div>
-            </el-card>
-            <el-table
-                    :data="tableData"
-                    stripe
-                    style="width: 100%">
-                <el-table-column
-                        prop="name"
-                        label="文件名称"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="date"
-                        label="上传日期"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="author"
-                        label="作者"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="control"
-                        label="操作">
-                    <template slot-scope="scope">
-                        <el-button
-                                size="mini"
-                                type="danger"
-                                @click="handleDelete(scope.$index, scope.row.fileId)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+            <el-row type="flex" justify="center">
+                <el-col :span="10">
+                    <el-card>
+                        <div slot="header" class="clearfix">
+                            <span>优秀作品上传</span>
+                        </div>
+                        <div>
+                            <el-form>
+                                <el-form-item label="作者姓名">
+                                    <el-input v-model="uploadParam.author"
+                                              placeholder="请输入作者姓名，用逗号分隔"
+                                              clearable></el-input>
+                                </el-form-item>
+                            </el-form>
+                            <el-upload
+                                    ref="upload"
+                                    action="/admin/uploadShowFile"
+                                    :data="uploadParam"
+                                    :on-preview="handlePreview"
+                                    :on-remove="handleRemove"
+                                    :file-list="fileList"
+                                    :auto-upload="false">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                            </el-upload>
+                        </div>
+                    </el-card>
+                    <el-table
+                            :data="tableData"
+                            stripe
+                            style="width: 100%">
+                        <el-table-column
+                                prop="name"
+                                label="文件名称"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="date"
+                                label="上传日期"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="author"
+                                label="作者"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="control"
+                                label="操作">
+                            <template slot-scope="scope">
+                                <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="handleDelete(scope.$index, scope.row.fileId)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
+
         </el-main>
     </el-container>
 </div>
@@ -121,7 +128,7 @@
             handleEdit(index, row) {
                 console.log(index, row);
             },
-            handleDelete(index, fileId) {
+            handleDelete(rowIndex, fileId) {
                 axios({
                     url: '/admin/deleteFile',
                     method: 'POST',
@@ -142,7 +149,6 @@
                     .catch( err => {
                         this.$message.error(err)
                     })
-                this.tableData.pop(index)
             },
             getAllShowFiles () {
                 axios({

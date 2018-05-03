@@ -47,9 +47,9 @@ public class PageController {
         return "uploadShowFile";
     }
 
-    @RequestMapping(value = "/admin/setReferencePage")
+    @RequestMapping(value = "/admin/addWebsitePage")
     public String setReference () {
-        return "setReference";
+        return "addWebsite";
     }
 
 

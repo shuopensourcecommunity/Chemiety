@@ -24,69 +24,74 @@
                     <template slot="title">资料设置</template>
                     <el-menu-item index="5-1"><a href="/admin/uploadEduFilePage">课件/文档上传</a></el-menu-item>
                     <el-menu-item index="5-2"><a href="/admin/uploadShowFilePage">优秀作品上传</a></el-menu-item>
-                    <el-menu-item index="5-3"><a href="/admin/setReferencePage">参考链接设置</a></el-menu-item>
+                    <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
                 <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
 
             </el-menu>
         </el-header>
         <el-main>
-            <el-card>
-                <div slot="header" class="clearfix">
-                    <span>资料上传</span>
-                </div>
-                <div>
-                    <el-select v-model="uploadParam.type" placeholder="请选择上传类别">
-                        <el-option
-                                v-for="type in types"
-                                :key="type.value"
-                                :label="type.label"
-                                :value="type.value">
-                        </el-option>
-                    </el-select>
-                    <el-upload
-                            ref="upload"
-                            action="/admin/uploadEduFile"
-                            :data="uploadParam"
-                            :on-preview="handlePreview"
-                            :on-remove="handleRemove"
-                            :file-list="fileList"
-                            :auto-upload="false">
-                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                    </el-upload>
-                </div>
-            </el-card>
-            <el-table
-                    :data="tableData"
-                    stripe
-                    style="width: 100%">
-                <el-table-column
-                        prop="name"
-                        label="文件名称"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="date"
-                        label="上传日期"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="type"
-                        label="类型"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="control"
-                        label="操作">
-                    <template slot-scope="scope">
-                        <el-button
-                                size="mini"
-                                type="danger"
-                                @click="handleDelete(scope.$index, scope.row.fileId)">删除</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+            <el-row type="flex" justify="center">
+                <el-col :span="10">
+                    <el-card>
+                        <div slot="header" class="clearfix">
+                            <span>资料上传</span>
+                        </div>
+                        <div>
+                            <el-select v-model="uploadParam.type" placeholder="请选择上传类别">
+                                <el-option
+                                        v-for="type in types"
+                                        :key="type.value"
+                                        :label="type.label"
+                                        :value="type.value">
+                                </el-option>
+                            </el-select>
+                            <el-upload
+                                    ref="upload"
+                                    action="/admin/uploadEduFile"
+                                    :data="uploadParam"
+                                    :on-preview="handlePreview"
+                                    :on-remove="handleRemove"
+                                    :file-list="fileList"
+                                    :auto-upload="false">
+                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                            </el-upload>
+                        </div>
+                    </el-card>
+                    <el-table
+                            :data="tableData"
+                            stripe
+                            style="width: 100%">
+                        <el-table-column
+                                prop="name"
+                                label="文件名称"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="date"
+                                label="上传日期"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="type"
+                                label="类型"
+                                width="180">
+                        </el-table-column>
+                        <el-table-column
+                                prop="control"
+                                label="操作">
+                            <template slot-scope="scope">
+                                <el-button
+                                        size="mini"
+                                        type="danger"
+                                        @click="handleDelete(scope.$index, scope.row.fileId)">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
+
         </el-main>
     </el-container>
 </div>

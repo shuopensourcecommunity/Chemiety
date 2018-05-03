@@ -9,7 +9,11 @@
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-    <title>课程设置</title>
+    <title>权限错误</title>
+    <style type="text/css">
+        　　 a { text-decoration: none }
+        　　
+        　　 </style>
 </head>
 <body>
 <div id="app">
@@ -27,24 +31,13 @@
                     <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
                 <el-menu-item index="6"><a href="/logoutPage">登出</a></el-menu-item>
+
             </el-menu>
         </el-header>
         <el-main>
-            <el-row type="flex" justify="center">
-                <el-col :span="10">
-                    <el-card>
-                        <div slot="header" class="clearfix">
-                            <span>课程安排</span>
-                        </div>
-                        <div>
-                            <el-input style="margin-bottom: 20px;" type="text" placeholder="请输入本学期上课时间 格式如：二 五 1-2"></el-input>
-                            <el-input style="margin-bottom: 20px;" type="text" placeholder="请输入本学期上课老师姓名"></el-input>
-                            <el-input style="margin-bottom: 20px;" type="submit" placeholder="提交"></el-input>
-                        </div>
-                    </el-card>
-                </el-col>
-            </el-row>
-
+            <el-card>
+                <h1>权限错误！</h1>
+            </el-card>
         </el-main>
     </el-container>
 </div>
@@ -54,10 +47,30 @@
         el: '#app',
         data () {
             return {
-                activeIndex: '4',
+                activeIndex: '1',
+                currentTime: '',
+                hasClassTable: false
             }
         },
         created () {
+            axios({
+                url: '/logout',
+                method: 'POST',
+            })
+                .then(res => {
+                    if (0 === res.data.status) {
+                        this.$message({
+                            type: 'success',
+                            message: res.data.result
+                        })
+                    } else {
+                        this.$message.error(res.data.result)
+                    }
+                })
+                .catch(err => {
+                    this.$message.error(err)
+                })
+            window.location.href = "/loginPage"
         },
         methods: {
 

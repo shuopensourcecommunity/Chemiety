@@ -58,22 +58,9 @@ public class InfoController {
     }
 
     @RequestMapping(value = "/getAllInfo")
-    public NetResult getAllInfo (HttpSession session) {
-        User user = (User)session.getAttribute(User.CUR_USER);
-        if (user != null) {
-//            if (user.getRoles() == User.Role.TEACHER) {
-//
-//            } else {
-//                netResult.status = -1;
-//                netResult.result = "无权限！";
-//            }
-            List<Info> infos = infoRepository.findByContentIsNotNull();
-            netResult.status = 0;
-            netResult.result = infos;
-        } else {
-            netResult.status = -2;
-            netResult.result = "登陆状态过期，请重新登录！";
-        }
+    public NetResult getAllInfo () {
+        netResult.status = 0;
+        netResult.result = infoRepository.findByContentIsNotNull();
         return netResult;
     }
 

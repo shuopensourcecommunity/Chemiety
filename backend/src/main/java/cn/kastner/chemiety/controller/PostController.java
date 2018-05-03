@@ -7,6 +7,7 @@ import cn.kastner.chemiety.repository.CommentRepository;
 import cn.kastner.chemiety.repository.PostRepository;
 import cn.kastner.chemiety.repository.UserRepository;
 import cn.kastner.chemiety.util.NetResult;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,23 +102,12 @@ public class PostController {
 
     @RequestMapping(value = "/getPosts")
     public NetResult getPosts (HttpSession session) {
-        User user = (User)session.getAttribute(User.CUR_USER);
-        if (user != null) {
-            List<Post> posts = postRepository.findByContentIsNotNull();
-            for (Post post: posts) {
-                post.setComments(commentRepository.findByPost(post));
-            }
-            if (null != posts) {
-                netResult.status = 0;
-                netResult.result = posts;
-            } else {
-                netResult.status = -1;
-                netResult.result = "内部错误";
-            }
-        } else {
-            netResult.status = -2;
-            netResult.result = "登陆状态过期，请重新登录！";
+        List<Post> posts = postRepository.findByContentIsNotNull();
+        for (Post post: posts) {
+            post.setComments(commentRepository.findByPost(post));
         }
+        netResult.status = 0;
+        netResult.result = posts;
         return netResult;
     }
 
@@ -125,20 +115,40 @@ public class PostController {
     public NetResult getMyPosts (HttpSession session) {
         User user = (User) session.getAttribute(User.CUR_USER);
         if (user != null) {
-                List<Post> posts = postRepository.findByUser(user);
-                for (Post post: posts) {
-                    post.setComments(commentRepository.findByPost(post));
-                }
-                if (null != posts) {
-                    netResult.status = 0;
-                    netResult.result = posts;
-                } else {
-                    netResult.status = -1;
-                    netResult.result = "内部错误";
-                }
+            List<Post> posts = postRepository.findByUser(user);
+            for (Post post: posts) {
+                post.setComments(commentRepository.findByPost(post));
+            }
+            netResult.status = 0;
+            netResult.result = posts;
         } else {
             netResult.status = -2;
             netResult.result = "登陆状态过期，请重新登录！";
+        }
+        return netResult;
+    }
+
+    @RequestMapping(value = "/admin/deletePost")
+    public NetResult deletePost (HttpSession session, @RequestParam Long postId) {
+        User user = (User) session.getAttribute(User.CUR_USER);
+        if (user != null) {
+            if (user.getRoles() == User.Role.TEACHER) {
+                Post post = postRepository.findByPostId(postId);
+                if (post != null) {
+                    postRepository.delete(post);
+                    netResult.status = 0;
+                    netResult.result = "删除成功！";
+                } else {
+                    netResult.status = -1;
+                    netResult.result = "参数错误！";
+                }
+            } else {
+                netResult.status = -2;
+                netResult.result = "无权限！";
+            }
+        } else {
+            netResult.status = -3;
+            netResult.result = "登录状态过期，请重新登录！";
         }
         return netResult;
     }

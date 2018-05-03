@@ -47,7 +47,7 @@
           <q-item-main label="课程大纲" sublabel="课程范围"/>
         </q-side-link>
         <q-side-link item to="/info">
-          <q-item-side icon="subject"/>
+          <q-item-side icon="card membership"/>
           <q-item-main label="课程公告" sublabel="老师发布的课程公告"/>
         </q-side-link>
         <q-side-link  item to="/rating">
@@ -56,7 +56,7 @@
         </q-side-link>
         <q-side-link  item to="/context">
           <q-item-side icon="view list"/>
-          <q-item-main label="课程内容" sublabel="课件、教学视频"/>
+          <q-item-main label="课件下载" sublabel="课件、教学视频"/>
         </q-side-link>
         <q-side-link  item to="/teachers">
           <q-item-side icon="people"/>

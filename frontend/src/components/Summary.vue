@@ -76,7 +76,7 @@ div.row.justify-center.layout
             q-item-tile(label='') 下一周
             q-item-tile(sublabel='') 放假
         q-card-separator.card-separator
-        q-item(link='', to='/introduction')
+        q-item(link='', to='/outline')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main
@@ -111,7 +111,7 @@ div.row.justify-center.layout
           q-item-side
             q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(doc.url)')
         q-card-separator.card-separator
-        q-item(link='', to='/introduction')
+        q-item(link='', to='/context')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main
@@ -136,7 +136,7 @@ div.row.justify-center.layout
           p {{presentations.title}}
           p.text-faded 
         q-card-separator.card-separatorr
-        q-item(link='', to='/introduction')
+        q-item(link='', to='/gallery')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main

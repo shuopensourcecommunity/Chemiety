@@ -1,27 +1,22 @@
 <template lang="pug">
 div.row.justify-center.layout
-  div.row.col-md-10.col-lg-10
-    div.col-sm-12.col-md-4.col-lg-4
+  div.row.col-md-8.col-lg-8
+    div.col-12
+      h4.caption 课程公告
       //info card
-      q-card.bg-white
-        q-item
-          q-item-side
-            big
-              q-item-tile(icon="warning", color='warning')
-          q-item-main
-              q-item-tile.card-title(label='') 公告
-          q-item-side
-            q-item-tile(right='', icon='more vert')
-        q-card-main
-          br
-          p {{ content }}
-        q-card-separator.card-separator
-        q-item
-          q-item-side
-            q-item-tile(icon="arrow forward")
-          q-item-main
-            q-item-tile(label='') 查看所有公告
-      
+      div.card-padding(v-for= "(info,index) in Infos")
+        q-card.bg-white
+          q-item.content-padding
+            q-item-side
+              big
+                q-item-tile(color='info') {{index+1}}
+            q-item-main
+                q-item-tile.text(label='') {{ info.content }}
+          q-card-separator
+          q-card-main.text-faded 发布者：{{info.user.username}}&nbsp&nbsp&nbsp发布时间：{{info.createDate}}
+          q-card-separator
+        
+        
 </template>
 
 <script>
@@ -30,11 +25,18 @@ export default {
   name: 'info',
   data () {
     return {
-      Info: [
+      Infos: [
         {
-          title: '',
+          user: {
+            gender: '',
+            name: '',
+            roles: '',
+            userId: '',
+            username: ''
+          },
           content: '',
-          time: ''
+          createDate: '',
+          infoId: ''
         }
       ]
     }
@@ -53,9 +55,9 @@ export default {
         withCredentials: true
       })
         .then(res => {
-          console.log(1)
-          console.log(res.data.result)
-          this.Info = res.data.result
+          // console.log(1)
+          // console.log(res.data.result)
+          this.Infos = res.data.result
         })
     },
     downloadFile (url) {
@@ -73,4 +75,11 @@ export default {
   .layout
     padding 10px 0 0 0
     background-color rgb(244,244,244)
+  .text
+    word-wrap:break-word;
+  .card-padding
+    padding-bottom 20px
+  .content-padding
+    padding-bottom 20px
+    padding-top 20px
 </style>

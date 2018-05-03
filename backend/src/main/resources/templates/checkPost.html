@@ -62,7 +62,7 @@
                     </el-card>
                     <h1>当前帖子列表</h1>
                     <transition-group name="el-zoom-in-top">
-                        <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
+                        <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.postId">
                             <div slot="header" class="clearfix">
                                 <span>{{post.title}}</span>
                                 <el-button style="float: right; padding: 3px 0; margin-left: 20px"
@@ -192,11 +192,12 @@
                     }
                 })
                     .then( response => {
-                        if (response.data.status == 0) {
+                        if (response.data.status === 0) {
                             this.$message({
                                 type: 'success',
                                 message: '评论成功！'
                             })
+
                         } else {
                             this.$message.error(response.data.result)
                         }
@@ -220,11 +221,16 @@
                     params: this.postParams
                 })
                     .then( response => {
-                        if (response.data.status == 0) {
+                        if (response.data.status === 0) {
                             this.$message({
                                 type: 'success',
                                 message: '发布帖子成功！'
                             })
+                            this.postParams.title = ''
+                            this.postParams.content = ''
+                            this.posts.unshift(
+                                response.data.result
+                            )
                         } else {
                             this.$message.error(response.data.result)
                         }

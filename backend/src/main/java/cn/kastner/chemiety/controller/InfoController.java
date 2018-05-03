@@ -41,7 +41,7 @@ public class InfoController {
                     info.setUser(user);
                     infoRepository.save(info);
                     netResult.status = 0;
-                    netResult.result = "发表成功！";
+                    netResult.result = info;
                 } else {
                     netResult.status = -1;
                     netResult.result = "公告内容为空";

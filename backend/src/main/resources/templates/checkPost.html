@@ -26,27 +26,35 @@
                     <el-menu-item index="5-2"><a href="/admin/uploadShowFilePage">优秀作品上传</a></el-menu-item>
                     <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
-                <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
+                <el-menu-item index="6"><a href="/logoutPage">登出</a></el-menu-item>
             </el-menu>
         </el-header>
         <el-main>
             <el-row type="flex" justify="center">
                 <el-col :span="10">
-                    <el-card class="box-card" v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
+                    <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.title">
                         <div slot="header" class="clearfix">
                             <span>{{post.title}}</span>
                             <el-button style="float: right; padding: 3px 0"
+                                       type="text" @click="isShowComments(index)">删除</el-button>
+                            <el-button style="float: right; padding: 3px 0"
                                        type="text" @click="isShowComments(index)">回复</el-button>
                         </div>
-                        <div class="text item">
+                        <div style="margin-bottom: 50px">
                             {{post.content}}
                         </div>
+                        <p style="color: #909399; text-align: right">{{post.user.name}}</p>
+                        <p style="color: #909399; text-align: right">{{post.createDate}}</p>
+                        <hr />
+                        <p style="color:#67C23A;">评论：</p>
                         <div>
                             <div v-for="comment in post.comments" :key="comment.content">
-                                <p>{{comment.content}}</p>
-                                <p>{{comment.createDate}}</p>
-                                <p>{{comment.user.name}}</p>
-                                <hr />
+                                <div style="margin-bottom: 30px">
+                                    <p>{{comment.content}}</p>
+                                    <p style="color: #909399; text-align: right">{{comment.user.name}}</p>
+                                    <p style="color: #909399; text-align: right">{{comment.createDate}}</p>
+                                    <hr />
+                                </div>
                             </div>
                             <el-collapse-transition>
                                 <div v-show="post.isShow">

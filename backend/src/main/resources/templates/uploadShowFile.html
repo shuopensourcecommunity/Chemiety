@@ -26,7 +26,7 @@
                     <el-menu-item index="5-2"><a href="/admin/uploadShowFilePage">优秀作品上传</a></el-menu-item>
                     <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
-                <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
+                <el-menu-item index="6"><a href="/logoutPage">登出</a></el-menu-item>
 
             </el-menu>
         </el-header>
@@ -38,26 +38,33 @@
                             <span>优秀作品上传</span>
                         </div>
                         <div>
-                            <el-form>
+                            <el-form label-position="right" label-width="120px">
                                 <el-form-item label="作者姓名">
                                     <el-input v-model="uploadParam.author"
                                               placeholder="请输入作者姓名，用逗号分隔"
                                               clearable></el-input>
                                 </el-form-item>
+                                <el-form-item label="选择上传文件">
+                                    <el-upload
+                                            ref="upload"
+                                            action="/admin/uploadShowFile"
+                                            :data="uploadParam"
+                                            :on-preview="handlePreview"
+                                            :on-remove="handleRemove"
+                                            :file-list="fileList"
+                                            :auto-upload="false">
+                                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                                    </el-upload>
+                                </el-form-item>
                             </el-form>
-                            <el-upload
-                                    ref="upload"
-                                    action="/admin/uploadShowFile"
-                                    :data="uploadParam"
-                                    :on-preview="handlePreview"
-                                    :on-remove="handleRemove"
-                                    :file-list="fileList"
-                                    :auto-upload="false">
-                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                            </el-upload>
                         </div>
                     </el-card>
+                </el-col>
+            </el-row>
+            <el-row type="flex" justify="center">
+                <el-col :span="16">
+                    <h1>当前文件列表</h1>
                     <el-table
                             :data="tableData"
                             stripe
@@ -65,7 +72,7 @@
                         <el-table-column
                                 prop="name"
                                 label="文件名称"
-                                width="180">
+                                width="420">
                         </el-table-column>
                         <el-table-column
                                 prop="date"
@@ -90,7 +97,6 @@
                     </el-table>
                 </el-col>
             </el-row>
-
         </el-main>
     </el-container>
 </div>

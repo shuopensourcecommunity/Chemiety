@@ -12,6 +12,11 @@ public class PageController {
         return "login";
     }
 
+    @RequestMapping(value = "/logoutPage")
+    public String logoutPage () {
+        return "logout";
+    }
+
     @RequestMapping(value = "/errorPage")
     public String error () {
         return "error";

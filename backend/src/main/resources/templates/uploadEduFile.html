@@ -26,7 +26,7 @@
                     <el-menu-item index="5-2"><a href="/admin/uploadShowFilePage">优秀作品上传</a></el-menu-item>
                     <el-menu-item index="5-3"><a href="/admin/addWebsitePage">参考链接设置</a></el-menu-item>
                 </el-submenu>
-                <el-menu-item index="6"><a href="/logout">登出</a></el-menu-item>
+                <el-menu-item index="6"><a href="/logoutPage">登出</a></el-menu-item>
 
             </el-menu>
         </el-header>
@@ -35,30 +35,38 @@
                 <el-col :span="10">
                     <el-card>
                         <div slot="header" class="clearfix">
-                            <span>资料上传</span>
+                            <span>课件/文档上传</span>
                         </div>
                         <div>
-                            <el-select v-model="uploadParam.type" placeholder="请选择上传类别">
-                                <el-option
-                                        v-for="type in types"
-                                        :key="type.value"
-                                        :label="type.label"
-                                        :value="type.value">
-                                </el-option>
-                            </el-select>
-                            <el-upload
-                                    ref="upload"
-                                    action="/admin/uploadEduFile"
-                                    :data="uploadParam"
-                                    :on-preview="handlePreview"
-                                    :on-remove="handleRemove"
-                                    :file-list="fileList"
-                                    :auto-upload="false">
-                                <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
-                                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-                            </el-upload>
+                            <el-form label-position="right" label-width="120px">
+                                <el-form-item label="文件类型">
+                                    <el-radio-group v-model="uploadParam.type" size="small">
+                                        <el-radio-button label="0">课件</el-radio-button>
+                                        <el-radio-button label="1">资料</el-radio-button>
+                                    </el-radio-group>
+                                </el-form-item>
+                                <el-form-item label="选择上传文件">
+                                    <el-upload
+                                            ref="upload"
+                                            action="/admin/uploadEduFile"
+                                            :data="uploadParam"
+                                            :on-preview="handlePreview"
+                                            :on-remove="handleRemove"
+                                            :file-list="fileList"
+                                            :auto-upload="false">
+                                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                                    </el-upload>
+                                </el-form-item>
+                            </el-form>
                         </div>
                     </el-card>
+
+                </el-col>
+            </el-row>
+            <el-row type="flex" justify="center">
+                <el-col :span="16">
+                    <h1>当前文件列表</h1>
                     <el-table
                             :data="tableData"
                             stripe
@@ -66,7 +74,7 @@
                         <el-table-column
                                 prop="name"
                                 label="文件名称"
-                                width="180">
+                                width="420">
                         </el-table-column>
                         <el-table-column
                                 prop="date"
@@ -91,7 +99,6 @@
                     </el-table>
                 </el-col>
             </el-row>
-
         </el-main>
     </el-container>
 </div>
@@ -106,18 +113,8 @@
                 hasClassTable: false,
                 action: '',
                 uploadParam: {
-                  type: ''
+                  type: 0
                 },
-                types: [
-                    {
-                        value: 0,
-                        label: '课件',
-                    },
-                    {
-                        value: 1,
-                        label: '资料',
-                    },
-                ],
                 fileList: [],
                 tableData: []
             }

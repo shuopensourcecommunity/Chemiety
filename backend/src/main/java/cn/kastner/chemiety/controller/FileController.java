@@ -187,4 +187,18 @@ public class FileController {
         netResult.result = files;
         return netResult;
     }
+
+    @RequestMapping(value = "/admin/deleteFile")
+    public NetResult deleteFile (@RequestParam Long fileId) {
+        cn.kastner.chemiety.domain.File file = fileRepository.findByFileId(fileId);
+        if (file == null) {
+            netResult.status = -1;
+            netResult.result = "文件不存在！";
+        } else {
+            fileRepository.delete(file);
+            netResult.status = 0;
+            netResult.result = "删除成功！";
+        }
+        return netResult;
+    }
 }

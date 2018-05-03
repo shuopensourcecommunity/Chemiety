@@ -83,7 +83,7 @@
                         <el-button
                                 size="mini"
                                 type="danger"
-                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                @click="handleDelete(scope.$index, scope.row.fileId)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -131,10 +131,30 @@
                 console.log(file);
             },
             handleEdit(index, row) {
-                console.log(index, row);
+                    console.log(index, row);
             },
-            handleDelete(index, row) {
-                console.log(index, row);
+            handleDelete(index, fileId) {
+                axios({
+                    url: '/admin/deleteFile',
+                    method: 'POST',
+                    params: {
+                        fileId: fileId
+                    }
+                })
+                    .then( res => {
+                        if (res.data.status === 0) {
+                            this.$message({
+                                type: 'success',
+                                message: res.data.result
+                            })
+                        } else {
+                            this.$message.error(res.data.result)
+                        }
+                    })
+                    .catch( err => {
+                        this.$message.error(err)
+                    })
+                this.tableData.pop(index)
             },
             getAllEduFiles () {
                 axios({

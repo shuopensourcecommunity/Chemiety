@@ -10,4 +10,5 @@ public interface FileRepository extends JpaRepository<File, Long> {
     File findByNameAndType(String name, File.Type type);
     List<File> findByType(File.Type type);
     List<File> findByTypeOrType(File.Type type1, File.Type type2);
+    File findByFileId(Long fileId);
 }

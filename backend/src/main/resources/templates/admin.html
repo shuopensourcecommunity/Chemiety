@@ -37,8 +37,7 @@
             <el-card>
                 <h1>欢迎，{{user.name}}</h1>
                 <p>当前时间: {{currentTime}}</p>
-                <p v-show="hasClassTable">下节上课：<span style="color: #67C23A;">2018-04-27 8:00</span></p>
-                <p v-show="!hasClassTable" style="color: #F56C6C;">暂无课程安排，请前往 <a href="/admin/settings">设置</a> </p>
+                <!--<p>下节上课：<span style="color: #67C23A;">2018-04-27 8:00</span></p>-->
             </el-card>
         </el-main>
     </el-container>
@@ -52,7 +51,6 @@
                 activeIndex: '1',
                 currentTime: '',
                 user: {},
-                hasClassTable: false
             }
         },
         created () {

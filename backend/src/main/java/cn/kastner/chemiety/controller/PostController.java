@@ -9,15 +9,26 @@ import cn.kastner.chemiety.repository.UserRepository;
 import cn.kastner.chemiety.util.NetResult;
 import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 public class PostController {
+
+    @InitBinder
+    protected void initBinder (WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
 
     @Autowired
     UserRepository userRepository;
@@ -49,10 +60,11 @@ public class PostController {
         if (user != null) {
             if (post.getContent() != null &&
                     post.getTitle() != null) {
+                post.setCreateDate(new Date());
                 post.setUser(user);
                 postRepository.save(post);
                 netResult.status = 0;
-                netResult.result = "发表成功！";
+                netResult.result = post;
             } else {
                 netResult.status = -1;
                 netResult.result = "帖子内容/主题为空";
@@ -88,13 +100,14 @@ public class PostController {
                 netResult.result = "评论对象异常";
             }else {
                 comment.setUser(user);
+                comment.setCreateDate(new Date());
                 int commentNumber = exPost.getCommentNumber();
                 exPost.setCommentNumber(++commentNumber);
                 postRepository.save(exPost);
                 comment.setPost(exPost);
                 commentRepository.save(comment);
                 netResult.status = 0;
-                netResult.result = "评论成功！";
+                netResult.result = comment;
             }
         }
         return netResult;

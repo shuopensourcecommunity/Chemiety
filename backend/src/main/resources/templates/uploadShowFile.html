@@ -46,6 +46,7 @@
                                     <el-upload
                                             ref="upload"
                                             action="/admin/uploadShowFile"
+                                            :on-success="clear"
                                             :data="uploadParam"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
@@ -53,6 +54,7 @@
                                             :auto-upload="false">
                                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                                        <div class="el-upload__tip" slot="tip">每个文件最大20M，一次最多可上传100M文件，上传后刷新显示</div>
                                     </el-upload>
                                 </el-form-item>
                             </el-form>
@@ -132,7 +134,7 @@
             handleEdit(index, row) {
                 console.log(index, row);
             },
-            handleDelete(rowIndex, fileId) {
+            handleDelete(index, fileId) {
                 this.tableData.splice(index, 1)
                 axios({
                     url: '/admin/deleteFile',
@@ -155,6 +157,9 @@
                         this.$message.error(err)
                     })
 
+            },
+            clear () {
+                this.uploadParam.author = ''
             },
             getAllShowFiles () {
                 axios({

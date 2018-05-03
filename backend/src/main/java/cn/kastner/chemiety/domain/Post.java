@@ -18,17 +18,9 @@ import java.util.UUID;
 @Table(name = "post")
 public class Post {
 
-    @InitBinder
-    protected void initBinder (WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
-
     public Post () {
         super();
         this.commentNumber = 0;
-        this.createDate = new Date();
     }
 
     @Id

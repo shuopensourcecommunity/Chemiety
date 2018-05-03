@@ -1,20 +1,16 @@
 <template lang="pug">
   // Configure "view" prop for QLayout
   div.row.justify-center.layout
-    div.row.col-md-10.col-lg-10
-      div.col-12
-        p
-          big 评分标准
-        div.row
-          div.col-12
-            q-card.bg-white
-              q-item(label='' style="padding-top:20px")
-                q-item-main
-                  q-tree(
-                    :model="treeModel",
-                    contract-html="<i class='material-icons'></i>"
-                    expand-html="<i class='material-icons'></i>"
-                )
+    div.row.col-md-8.col-lg-8
+      div.col-12  
+        h4.caption 评分标准
+        q-card.bg-white
+          q-item(label='' style="padding-top:20px")
+            q-tree(
+              :model="treeModel",
+              contract-html="<i class='material-icons'></i>"
+              expand-html="<i class='material-icons'></i>"
+            )
 </template>
 
 <script>

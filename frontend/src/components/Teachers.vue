@@ -1,7 +1,7 @@
 <template lang="pug">
   //if you want automatic padding use "layout-padding" class
   div.row.justify-center.layout-padding
-    div.row.col-md-10.col-lg-10
+    div.row.col-md-8.col-lg-8
       div.col-12.wrap.flex.row
         div.col-xs-12.col-md-6.col-lg-3
           q-card.bg-white

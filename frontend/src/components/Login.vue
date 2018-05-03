@@ -1,11 +1,12 @@
 <template lang="pug">
-div.row.justify-center.layout
-    q-card
+div.row.justify-center
+  div.row.col-md-6.col-lg-6.col-sm-12
+    q-card.bg-white.col-sm-12.col-md-12.col-lg-12(style="height:300px;margin-top:100px")
         q-card-title 登录
         q-card-main
-            q-input(v-model='username' float-label='请输入学号/工号')
-            q-input(v-model='password' type='password' float-label='请输入密码' @keyup.Enter.native='login')
-            q-btn(color='primary' @click='login') 登录
+          q-input(v-model='username' float-label='请输入学号/工号')
+          q-input(v-model='password' type='password' float-label='请输入密码' @keyup.Enter.native='login')
+          q-btn(color='primary' @click='login' style="margin-top:30px;") 登录
 </template>
 
 <script>

@@ -1,7 +1,8 @@
 <template lang="pug">
   //if you want automatic padding use "layout-padding" class
   div.row.justify-center.layout-padding
-    div.col-sm-12.col-md-8.col-lg-6
+    div.col-sm-12.col-md-8.col-lg-8
+      h4.caption 学习园地
       q-card.bg-white
         q-card-title 参考阅读资料
           span(slot="subtitle") 值得同学们课外阅读的材料

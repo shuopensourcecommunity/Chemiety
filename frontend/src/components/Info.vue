@@ -9,7 +9,7 @@ div.row.justify-center.layout
           q-item.content-padding
             q-item-side
               big
-                q-item-tile(color='info') {{index+1}}
+                q-icon(name="face" color="info")
             q-item-main
                 q-item-tile.text(label='') {{ info.content }}
           q-card-separator
@@ -78,7 +78,7 @@ export default {
   .text
     word-wrap:break-word;
   .card-padding
-    padding-bottom 20px
+    padding-bottom 10px
   .content-padding
     padding-bottom 20px
     padding-top 20px

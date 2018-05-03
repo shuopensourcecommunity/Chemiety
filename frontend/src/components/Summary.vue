@@ -36,16 +36,11 @@ div.row.justify-center.layout
           q-item-main
             q-item-tile(label='') 课程名称
             q-item-tile(sublabel='') 化学与社会
-        q-item  
-          q-item-side
-          q-item-main
-            q-item-tile(label='') 上课时间
-            q-item-tile(sublabel='') 二 1-2 五 1-2
-        q-item  
+        q-item(link='', to='/teachers')
           q-item-side
           q-item-main
             q-item-tile(label='') 教师名称
-            q-item-tile(sublabel='') 陆文聪、李敏杰
+            q-item-tile(sublabel='') 陆文聪、李敏杰等
         q-card-separator.card-separator
         q-item(link='', to='/introduction')
           q-item-side
@@ -65,16 +60,16 @@ div.row.justify-center.layout
               q-item-tile.card-title(label='') 课程安排
           q-item-side
             q-item-tile(right='', icon='more vert')
-        q-item
+        q-item(link='', to='/outline')
           q-item-side  
           q-item-main
-            q-item-tile(label='') 本周将讲授
-            q-item-tile(sublabel='', color='secondary') 第二讲 元素
-        q-item  
+            q-item-tile(label='') 每周学习内容
+            q-item-tile(sublabel='', color='secondary') 请自行查看课程大纲
+        q-item(link='', to='/info')
           q-item-side
           q-item-main
-            q-item-tile(label='') 下一周
-            q-item-tile(sublabel='') 放假
+            q-item-tile(label='') 每周通知
+            q-item-tile(sublabel='' color='secondary') 请自行查看每周公告
         q-card-separator.card-separator
         q-item(link='', to='/outline')
           q-item-side

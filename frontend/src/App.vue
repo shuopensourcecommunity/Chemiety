@@ -56,7 +56,7 @@
         </q-side-link>
         <q-side-link  item to="/context">
           <q-item-side icon="view list"/>
-          <q-item-main label="课件下载" sublabel="课件、教学视频"/>
+          <q-item-main label="资料下载" sublabel="课件、教学视频"/>
         </q-side-link>
         <q-side-link  item to="/teachers">
           <q-item-side icon="people"/>
@@ -77,11 +77,7 @@
           <q-item-main label="讨论区" sublabel="问题发布与讨论"/>
         </q-side-link>
         <q-item-separator/>
-        <q-list-header>作业</q-list-header>
-        <q-side-link  item to="/assignment">
-          <q-item-side icon="assignment"/>
-          <q-item-main label="作业" sublabel="作业"/>
-        </q-side-link>
+        <q-list-header>考试</q-list-header>
         <q-side-link  item to="/test">
           <q-item-side icon="assignment turned in"/>
           <q-item-main label="课程考试" sublabel="考试资料"/>

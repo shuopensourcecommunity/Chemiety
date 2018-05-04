@@ -64,11 +64,11 @@
                     <transition-group name="el-zoom-in-top">
                         <el-card v-for="(post, index) in posts" style="margin-bottom: 20px" :key="post.postId">
                             <div slot="header" class="clearfix">
-                                <span>{{post.title}}</span>
+                                <span>{{post.title}} index:{{index}}</span>
                                 <el-button style="float: right; padding: 3px 0; margin-left: 20px"
                                            type="text" @click="isShowComments(index)">回复</el-button>
                                 <el-button style="float: right; padding: 3px 0; color: #F56C6C;"
-                                           type="text" @click="deletePost(index)">删除</el-button>
+                                           type="text" @click="deletePost(post.postId, index)">删除</el-button>
                             </div>
                             <div style="margin-bottom: 50px">
                                 {{post.content}}
@@ -140,7 +140,7 @@
                     method: 'POST',
                 })
                     .then(response => {
-                        this.posts = response.data.result.reverse();
+                        this.posts = response.data.result
                         this.posts.forEach(post.push({
                             isShow: false,
                             inputComment: ''
@@ -149,15 +149,14 @@
                     .catch(error => {
                         this.$message.error(error)
                     })
-                this.posts.reverse()
             },
-            deletePost (index) {
+            deletePost (postId, index) {
                 this.posts.splice(index, 1)
                 axios({
                     url: '/admin/deletePost',
                     method: 'POST',
                     params: {
-                        postId: this.posts[index].postId
+                        postId: postId
                     }
                 })
                     .then( response => {
@@ -173,7 +172,6 @@
                     .catch( error => {
                         this.$message.error(error)
                     })
-
             },
             isShowComments (index) {
                 if (this.posts[index].isShow) {
@@ -199,9 +197,12 @@
                             })
                             this.$set(this.posts[index], 'inputComment', '')
                             this.$set(this.posts[index], 'isShow', false)
+                            console.log(response.data.result)
+                            this.$set(this.posts[index], 'comments', [])
                             this.posts[index].comments.push(
                                 response.data.result
                             )
+                            console.log(this.posts[index])
 
                         } else {
                             this.$message.error(response.data.result)
@@ -212,14 +213,6 @@
                     })
             },
             postPost () {
-                this.posts.unshift({
-                    title: this.postParams.title,
-                    content: this.postParams.content,
-                    user: {
-                        name: '我'
-                    },
-                    createDate: '刚刚发表'
-                })
                 axios({
                     url: '/postPost',
                     method: 'POST',

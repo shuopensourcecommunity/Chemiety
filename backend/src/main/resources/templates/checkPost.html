@@ -6,7 +6,7 @@
     <!-- import axios -->
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <!-- import Vue before Element -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title>帖子管理</title>
@@ -197,6 +197,11 @@
                                 type: 'success',
                                 message: '评论成功！'
                             })
+                            this.$set(this.posts[index], 'inputComment', '')
+                            this.$set(this.posts[index], 'isShow', false)
+                            this.posts[index].comments.push(
+                                response.data.result
+                            )
 
                         } else {
                             this.$message.error(response.data.result)

@@ -6,7 +6,7 @@
     <!-- import axios -->
     <script src="https://unpkg.com/axios/dist/axios.js"></script>
     <!-- import Vue before Element -->
-    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
     <!-- import JavaScript -->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="md5.js"></script>
@@ -36,19 +36,29 @@
             <el-row justify="center" type="flex">
                 <el-col :span="8">
                     <el-card>
-                        <h1>登录</h1>
-                        <el-input placeholder="请输入账号"
-                                  v-model="username"
-                                  type="text"
-                                  clearable>
-                        </el-input>
-                        <el-input placeholder="请输入密码"
-                                  v-model="password"
-                                  type="password"
-                                  @keyup.Enter.native="login"
-                                  clearable>
-                        </el-input>
-                        <el-button type="primary" @click="login">登录</el-button>
+                        <h1 style="text-align: center">登录</h1>
+                        <el-form label-position="right" label-width="80px">
+                            <el-form-item label="账号">
+                                <el-input placeholder="请输入账号"
+                                          v-model="username"
+                                          type="text"
+                                          clearable>
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item label="密码">
+                                <el-input placeholder="请输入密码"
+                                          v-model="password"
+                                          type="password"
+                                          @keyup.Enter.native="login"
+                                          clearable>
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="login" >登录</el-button>
+                            </el-form-item>
+                        </el-form>
+
+
                     </el-card>
                 </el-col>
             </el-row>

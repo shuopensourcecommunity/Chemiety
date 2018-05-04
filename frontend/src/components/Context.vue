@@ -76,7 +76,7 @@ export default {
   methods: {
     getEdus () {
       axios({
-        url: 'http://localhost:8080/getAllFiles',
+        url: 'http://139.196.75.17:8080/getAllFiles',
         params: {
           fileType: 'edu'
         },
@@ -94,7 +94,7 @@ export default {
     },
     getShows () {
       axios({
-        url: 'http://localhost:8080/getAllFiles',
+        url: 'http://139.196.75.17:8080/getAllFiles',
         params: {
           fileType: 'show'
         },
@@ -112,7 +112,7 @@ export default {
     },
     downloadFile (url) {
       // window.location.href = 'localhost:8080' + url
-      window.open('localhost:8080' + url)
+      window.open('http://139.196.75.17:8080' + url)
     },
     toLink (url) {
       window.location.href = url

@@ -192,7 +192,7 @@ export default {
   methods: {
     getFirstInfo () {
       axios({
-        url: 'http://localhost:8080/getFirstInfo',
+        url: 'http://139.196.75.17:8080/getFirstInfo',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'

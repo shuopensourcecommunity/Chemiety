@@ -37,7 +37,7 @@ export default {
   methods: {
     getAllFile () {
       axios({
-        url: 'http://localhost:8080/getAllFiles',
+        url: 'http://139.196.75.17:8080/getAllFiles',
         params: {
           fileType: 'website'
         },

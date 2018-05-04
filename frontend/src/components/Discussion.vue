@@ -80,7 +80,7 @@ export default {
     },
     getAllPost () {
       axios({
-        url: 'http://localhost:8080/getPosts',
+        url: 'http://139.196.75.17:8080/getPosts',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -100,7 +100,7 @@ export default {
       }
       else { // 非空
         axios({
-          url: 'http://localhost:8080/postComment',
+          url: 'http://139.196.75.17:8080/postComment',
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -147,7 +147,7 @@ export default {
         // 请求前前端操作：清空输入框，关闭模态框
         this.maximizedModal = false
         axios({
-          url: 'http://localhost:8080/postPost',
+          url: 'http://139.196.75.17:8080/postPost',
           method: 'POST',
           headers: {
             'Content-Type': 'application/json;charset=utf-8'

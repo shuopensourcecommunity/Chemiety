@@ -82,6 +82,11 @@
           <q-item-side icon="assignment turned in"/>
           <q-item-main label="课程考试" sublabel="考试资料"/>
         </q-side-link>
+        <q-list-header>关于</q-list-header>
+        <q-side-link  item to="/about">
+          <q-item-side icon="favorite border"/>
+          <q-item-main label="关于网站" sublabel="关于"/>
+        </q-side-link>
       </q-list>
     </div>
     <transition name="fade">

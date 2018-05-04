@@ -4,7 +4,7 @@
       div.col-12
         h4.caption 成果展示
         div.row
-          q-search.on-right.col-lg-4.col-md-4.col-sm-4.col-xs-12(float-label="查找主题")
+          q-search.on-right.col-lg-4.col-md-4.col-sm-4.col-xs-12(float-label="查找主题" v-model='keyword')
         div.row.xs-gutter
           div.col-lg-6.col-md-6.col-sm-12
             q-card.col-12.bg-white
@@ -80,7 +80,8 @@
           'statics/Run+Music/Slide6.JPG',
           'statics/Run+Music/Slide7.JPG',
           'statics/Run+Music/Slide8.JPG'
-        ]
+        ],
+        keyword: ''
       }
     }
   }

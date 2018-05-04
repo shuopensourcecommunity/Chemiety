@@ -80,7 +80,10 @@ export default new VueRouter({
       path: '/test',
       component: load('Test')
     },
-
+    {
+      path: '/about',
+      component: load('About')
+    },
     // Always leave this last one
     { path: '*', component: load('Error404') }]// Not found
 

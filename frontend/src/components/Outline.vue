@@ -7,14 +7,14 @@
         q-card
           q-stepper(vertical='', done="", v-model="currentStep", ref="stepper", color='secondary').bg-white
             q-step(:title='chapter.name',
-                    :default="(index == 0) ? 'true' : 'false'",
+                    :default="(index == 0) ? true : false",
                     v-for="(chapter, index) in chapters",
-                    :key="chapter",
+                    :key="chapter.name",
                     :name='index')
               q-list(no-border="")
-                q-item(v-for="(directory, index) in chapter.directories", :key="directory")
+                q-item(v-for="(directory, index) in chapter.directories" :key="directory.index")
                   q-item-main
-                    q-item-title {{index + 1}} {{directory}}
+                    q-item-tile {{index + 1}} {{directory}}
               q-stepper-navigation
                 q-btn(color="secondary", @click="$refs.stepper.next()") Next
                 q-btn(color="secondary", @click="$refs.stepper.previous()", flat="") Back
@@ -25,6 +25,7 @@
 import {
   QStepper,
   QStep,
+  QCard,
   QStepperNavigation
 } from 'quasar'
 export default {
@@ -32,7 +33,8 @@ export default {
   components: {
     QStepper,
     QStep,
-    QStepperNavigation
+    QStepperNavigation,
+    QCard
   },
   data () {
     return {

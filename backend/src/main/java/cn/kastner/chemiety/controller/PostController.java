@@ -7,7 +7,6 @@ import cn.kastner.chemiety.repository.CommentRepository;
 import cn.kastner.chemiety.repository.PostRepository;
 import cn.kastner.chemiety.repository.UserRepository;
 import cn.kastner.chemiety.util.NetResult;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.web.bind.WebDataBinder;

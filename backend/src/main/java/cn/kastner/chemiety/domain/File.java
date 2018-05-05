@@ -6,9 +6,6 @@ import java.util.Date;
 @Entity
 public class File {
 
-
-
-
     public enum Type {
         SLIDE,
         DOCUMENT,

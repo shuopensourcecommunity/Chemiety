@@ -21,7 +21,7 @@ div.row.justify-center.layout
             q-item-tile(icon="arrow forward")
           q-item-main
             q-item-tile(label='') 查看所有公告
-      // summary card 
+      // summary card
       q-card.bg-white
         q-item
           q-item-side
@@ -32,7 +32,7 @@ div.row.justify-center.layout
           q-item-side
             q-item-tile(right='', icon='more vert')
         q-item
-          q-item-side  
+          q-item-side
           q-item-main
             q-item-tile(label='') 课程名称
             q-item-tile(sublabel='') 化学与社会
@@ -47,10 +47,33 @@ div.row.justify-center.layout
             q-item-tile(icon="arrow forward")
           q-item-main
             q-item-tile(label='') 查看课程详情
-      
-    //middle colomn
+      q-card.bg-white
+        q-item
+          q-item-side
+            big
+              q-item-tile(icon="assignment")
+          q-item-main
+            q-item-tile.card-title(label='') 考试
+          q-item-side
+            q-item-tile(right='', icon='more vert')
+        q-item
+          q-item-side
+          q-item-main
+            q-item-tile(label='') 考试方式
+            q-item-tile(sublabel='') 期末演讲(30%) + 开卷考试(70%)
+        q-item
+          q-item-side
+          q-item-main
+            q-item-tile(label='') 演讲评分
+            q-item-tile(sublabel='') 逻辑 + 内容 + 讲解 + 制作
+        q-card-separator.card-separator
+        q-item(link='', to='/rating')
+          q-item-side
+            q-item-tile(icon="arrow forward")
+          q-item-main
+            q-item-tile(label='') 查看评分详情
+
     div.col-sm-12.col-md-4.col-lg-4
-      // outline card 
       q-card.bg-white
         q-item
           q-item-side
@@ -61,7 +84,7 @@ div.row.justify-center.layout
           q-item-side
             q-item-tile(right='', icon='more vert')
         q-item(link='', to='/outline')
-          q-item-side  
+          q-item-side
           q-item-main
             q-item-tile(label='') 每周学习内容
             q-item-tile(sublabel='', color='secondary') 请自行查看课程大纲
@@ -90,7 +113,7 @@ div.row.justify-center.layout
         q-item(v-for='slide in slides', :key="slides.name")
           q-item-side
             q-item-tile(icon='insert chart')
-          q-item-main 
+          q-item-main
             q-item-tile(label='') {{slide.name}}
             q-item-tile(sublabel='') {{slide.description}}
           q-item-side
@@ -129,22 +152,22 @@ div.row.justify-center.layout
           span(slot="subtitle") {{presentations.time}} {{presentations.authorName}}
         q-card-main
           p {{presentations.title}}
-          p.text-faded 
+          p.text-faded
         q-card-separator.card-separatorr
         q-item(link='', to='/gallery')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main
             q-item-tile(label='') 查看更多学生成果展示
-      
-      
+
+
 
 
 
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../api/api'
 export default {
   name: 'summaryAll',
   data () {
@@ -191,14 +214,7 @@ export default {
   },
   methods: {
     getFirstInfo () {
-      axios({
-        url: 'http://139.196.75.17:8080/getFirstInfo',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
-      })
+      api.getFirstInfo()
         .then(res => {
           console.log(res.data.result)
           this.content = res.data.result.content

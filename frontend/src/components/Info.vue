@@ -15,17 +15,17 @@ div.row.justify-center.layout
           q-card-separator
           q-card-main.text-faded 发布者：{{info.user.username}}&nbsp&nbsp&nbsp发布时间：{{info.createDate}}
           q-card-separator
-        
-        
+
+
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../api/api'
 export default {
   name: 'info',
   data () {
     return {
-      Infos: [
+      infos: [
         {
           user: {
             gender: '',
@@ -46,18 +46,9 @@ export default {
   },
   methods: {
     getAllInfo () {
-      axios({
-        url: 'http://139.196.75.17:8080/getAllInfo',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
-      })
+      api.getAllInfo()
         .then(res => {
-          // console.log(1)
-          // console.log(res.data.result)
-          this.Infos = res.data.result
+          this.infos = res.data.result
         })
     },
     downloadFile (url) {

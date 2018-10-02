@@ -15,7 +15,7 @@ public class GlobalCorsConfig {
                 registry.addMapping("/**")
                     .allowedOrigins("*")
                     .allowCredentials(true)
-                    .allowedMethods("GET", "POST", "DELETE", "PUT")
+                    .allowedMethods("GET", "POST", "DELETE", "PUT", "OPTIONS")
                     .maxAge(3600);
             }
         };

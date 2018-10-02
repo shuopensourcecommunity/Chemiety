@@ -94,7 +94,7 @@
         methods: {
             getInfos() {
                 axios({
-                    url: '/getAllInfo',
+                    url: '/api/v1/getAllInfo',
                     method: 'POST',
                 })
                     .then(res => {
@@ -107,7 +107,7 @@
             },
             createInfo() {
                 axios({
-                    url: '/postInfo',
+                    url: '/api/v1/postInfo',
                     method: 'POST',
                     params: {
                         content: this.infoInput

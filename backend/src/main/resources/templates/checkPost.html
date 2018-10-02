@@ -139,7 +139,7 @@
         methods: {
             getPosts () {
                 axios({
-                    url: '/getPosts',
+                    url: '/api/v1/getPosts',
                     method: 'POST',
                 })
                     .then(response => {
@@ -156,7 +156,7 @@
             deletePost (postId, index) {
                 this.posts.splice(index, 1)
                 axios({
-                    url: '/admin/deletePost',
+                    url: '/api/v1/admin/deletePost',
                     method: 'POST',
                     params: {
                         postId: postId
@@ -185,7 +185,7 @@
             },
             postComment (postId, index) {
                 axios({
-                    url: '/postComment',
+                    url: '/api/v1/postComment',
                     method: 'POST',
                     params: {
                         postId: postId,
@@ -217,7 +217,7 @@
             },
             postPost () {
                 axios({
-                    url: '/postPost',
+                    url: '/api/v1/postPost',
                     method: 'POST',
                     params: this.postParams
                 })

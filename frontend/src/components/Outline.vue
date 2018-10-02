@@ -16,7 +16,7 @@
           q-item.bg-white(link='', to='/outline')
             q-item-side
             q-item-main
-              q-item-tile.item(label='', v-for="(title, index) in item.directories") {{ index+1 }}. {{ title }}
+              q-item-tile.item(label='', v-for="(title, index) in item.directories" :key="index") {{ index+1 }}. {{ title }}
 
           //q-stepper(vertical='', done="", v-model="currentStep", ref="stepper", color='secondary').bg-white
             q-step(:title='chapter.name',

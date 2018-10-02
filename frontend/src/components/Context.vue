@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../api/api'
 export default {
   data () {
     return {
@@ -75,44 +75,19 @@ export default {
   },
   methods: {
     getEdus () {
-      axios({
-        url: 'http://139.196.75.17:8080/getAllFiles',
-        params: {
-          fileType: 'edu'
-        },
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
-      })
+      api.getAllFiles('edu')
         .then(res => {
-          // console.log(1)
-          // console.log(res.data.result)
           this.edus = res.data.result
         })
     },
     getShows () {
-      axios({
-        url: 'http://139.196.75.17:8080/getAllFiles',
-        params: {
-          fileType: 'show'
-        },
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
-      })
+      api.getAllFiles('show')
         .then(res => {
-          // console.log(1)
-          // console.log(res.data.result)
           this.shows = res.data.result
         })
     },
     downloadFile (url) {
-      // window.location.href = 'localhost:8080' + url
-      window.open('http://139.196.75.17:8080' + url)
+      window.open('http://chemiety.kastner.cn' + url)
     },
     toLink (url) {
       window.location.href = url

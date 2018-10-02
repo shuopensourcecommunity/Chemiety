@@ -2,7 +2,7 @@
   // Configure "view" prop for QLayout
   div.row.justify-center.layout
     div.row.col-md-8.col-lg-8
-      div.col-12  
+      div.col-12
         h4.caption 评分标准
         q-card.bg-white
           q-item(label='' style="padding-top:20px")
@@ -36,54 +36,49 @@
       return {
         treeModel: [
           {
-            title: '平时成绩  30%',
+            title: '期末演讲  30%',
             icon: 'record voice over',
             expanded: true,
             children: [
               {
-                title: '考勤  30%',
+                title: '逻辑  25%',
                 expanded: true,
                 children: [
                   {
-                    title: '一学期出勤如果缺席3次及以上则平时分为0',
+                    title: '演讲逻辑',
                     expanded: true,
                     children: []
                   }
                 ]
               },
               {
-                title: '平时作业  30%',
+                title: '内容  25%',
                 expanded: true,
                 children: [
                   {
-                    title: '随堂测试',
-                    expanded: true,
-                    children: []
-                  },
-                  {
-                    title: '每周如果老师有布置作业，认真完成并上交。完成优秀，即有加分',
+                    title: '演讲内容',
                     expanded: true,
                     children: []
                   }
                 ]
               },
               {
-                title: '课堂演讲  40%',
+                title: '讲解  25%',
                 expanded: true,
                 children: [
                   {
-                    title: '在学期末参加课堂演讲的同学，根据表现和内容打分',
+                    title: '讲解水平',
                     expanded: true,
                     children: []
                   }
                 ]
               },
               {
-                title: '上课积极发言',
+                title: '制作  25%',
                 expanded: true,
                 children: [
                   {
-                    title: '上课积极发言平时分会在原有基础上进行加分',
+                    title: '制作是否用心',
                     expanded: true,
                     children: []
                   }

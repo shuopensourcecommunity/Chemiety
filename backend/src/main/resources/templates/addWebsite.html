@@ -132,7 +132,7 @@
             handleDelete(index, fileId) {
                 this.tableData.splice(index, 1)
                 axios({
-                    url: '/admin/deleteFile',
+                    url: '/api/v1/admin/deleteFile',
                     method: 'POST',
                     params: {
                         fileId: fileId
@@ -155,7 +155,7 @@
             },
             getAllWebsites () {
                 axios({
-                    url: '/getAllFiles',
+                    url: '/api/v1/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'website'
@@ -170,7 +170,7 @@
             },
             addWebsite () {
                 axios({
-                    url: '/addWebsite',
+                    url: '/api/v1/addWebsite',
                     method: 'POST',
                     params: {
                         name: this.name,

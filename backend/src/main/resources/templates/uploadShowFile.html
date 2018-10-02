@@ -140,7 +140,7 @@
             handleDelete(index, fileId) {
                 this.tableData.splice(index, 1)
                 axios({
-                    url: '/admin/deleteFile',
+                    url: '/api/v1/admin/deleteFile',
                     method: 'POST',
                     params: {
                         fileId: fileId
@@ -166,7 +166,7 @@
             },
             getAllShowFiles () {
                 axios({
-                    url: '/getAllFiles',
+                    url: '/api/v1/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'show'

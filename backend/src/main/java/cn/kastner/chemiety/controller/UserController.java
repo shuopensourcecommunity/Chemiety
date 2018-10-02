@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.swing.text.html.HTML;
 
 @RestController
+@RequestMapping(value = "/api/v1")
 public class UserController {
 
     @Autowired

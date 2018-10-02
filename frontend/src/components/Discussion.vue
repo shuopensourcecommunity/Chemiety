@@ -79,10 +79,11 @@ export default {
       return msg.charAt(0).toUpperCase() + msg.slice(1)
     },
     getAllPost () {
-      api.getAllPost()
-        .then(res => {
-          this.posts = res.data.result.reverse()
-        })
+      api.getAllPost().then(res => {
+        this.posts = res.data.result.reverse()
+      }).catch(error => {
+        console.log(error)
+      })
     },
     updateComment (index) {
       // 判空

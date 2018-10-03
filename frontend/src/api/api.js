@@ -1,14 +1,24 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://chemiety.kastner.cn'
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
-axios.defaults.withCredentials = true
+// axios.interceptors.request.use(function (config) {
+//   config.headers.common = {
+//     'Content-Type': 'application/x-www-form-urlencoded'
+//   }
+//   return config
+// }, function (error) {
+//   return Promise.reject(error)
+// })
+axios.defaults.baseURL = 'http://chemiety-admin.kastner.cn'
+// axios.defaults.withCredentials = false
+axios.defaults.headers.common = {
+  'Content-Type': 'application/json'
+}
 
 export default {
-  getFirstInfo: () => axios.post('/getFirstInfo'),
-  getAllInfo: () => axios.post('/getAllInfo'),
-  getAllFiles: (fileType) => axios.post('/getAllFiles', { params: fileType }),
-  getAllPost: () => axios.post('/getAllPost'),
-  postComment: ({content, postId}) => axios.post('/postComment', { params: {content, postId} }),
-  postPost: ({title, content}) => axios.post('/postPost', {param: {title, content}})
+  getFirstInfo: () => axios.get('/api/v1/getFirstInfo'),
+  getAllInfo: () => axios.get('/api/v1/getAllInfo'),
+  getAllFiles: (fileType) => axios.get('/api/v1/getAllFiles', {params: {fileType: fileType}}),
+  getAllPost: () => axios.get('/api/v1/getPosts'),
+  postComment: ({content, postId}) => axios.get('/api/v1/postComment', {params: {content: content, postId: postId}}),
+  postPost: ({title, content}) => axios.get('/api/v1/postPost', {params: {title: title, content: content}})
 }

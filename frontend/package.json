@@ -17,6 +17,7 @@
     "md5": "^2.2.1",
     "node-macaddress": "^0.2.4",
     "pug": "^2.0.0-rc.4",
+    "qs": "^6.5.2",
     "quasar": "0.0.18",
     "quasar-extras": "0.x",
     "quasar-framework": "^0.14.4",

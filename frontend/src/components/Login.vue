@@ -24,7 +24,7 @@ export default {
   methods: {
     login () {
       axios({
-        url: 'http://139.196.75.17:8080/login',
+        url: 'http://chemiety.kastner.cn/api/v1/login',
         method: 'POST',
         params: {
           username: this.username,
@@ -38,7 +38,7 @@ export default {
         .then(res => {
           console.log(res.data)
           axios({
-            url: 'http://139.196.75.17:8080/getUserInfo',
+            url: 'http://chemiety.kastner.cn/api/v1/getUserInfo',
             method: 'POST',
             headers: {
               'Content-Type': 'application/json;charset=utf-8'
@@ -47,11 +47,11 @@ export default {
           })
             .then(res => {
               if (res.data.result.roles === 'TEACHER') {
-                window.location.href = 'http://139.196.75.17:8080/admin/index'
+                window.location.href = 'http://chemiety.kastner.cn/admin/index'
                 this.setCookie('role', 'TEACHER', 1)
               }
               else {
-                window.location.href = 'http://139.196.75.17:8081/'
+                window.location.href = 'http://chemiety.kastner.cn/'
                 this.setCookie('role', 'STUDENT', 1)
               }
               console.log(res.data)

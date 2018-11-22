@@ -4,20 +4,20 @@
     Chemiety是上海大学化学与社会的课程网站，提供课程相关信息，讨论区帮助沟通。
 
 <div style="width:100%">
-<img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg" width="50%">
+<img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg" style="width:50%;float:left">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxgsihnqzcj31ir0u0dp0.jpg" width="50%">
+<img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxgsihnqzcj31ir0u0dp0.jpg" style="width:50%;float:left">
 </div>
 
 <div style="width:100%">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtc3vezkj30u01szjxv.jpg" style="width:33%;">
+<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtc3vezkj30u01szjxv.jpg" style="width:33%;float:left">
 
 
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtibz926j30u01sztfr.jpg" style="width:33%;">
+<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtibz926j30u01sztfr.jpg" style="width:33%;float:left">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtiml6luj30u01sz4qp.jpg" style="width:33%;">
+<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtiml6luj30u01sz4qp.jpg" style="width:33%;float:left">
 </div>
 ## 技术栈
 

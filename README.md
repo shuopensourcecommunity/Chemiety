@@ -3,7 +3,6 @@
 ## 简介
     Chemiety是上海大学化学与社会的课程网站，提供课程相关信息，讨论区帮助沟通。
 
-![命令运行网易云音乐]({filename}/images/4.gif){: width="300px" height="300px"} 
 
 <img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg" style="width:100%;">
 

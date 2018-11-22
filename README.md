@@ -1,15 +1,19 @@
 # Chemiety
 
-we had release version 0.3！
-
-
-
 ## 简介
-    Chemiety是上海大学化学与社会的课程网站,提供课程相关信息。
+    Chemiety是上海大学化学与社会的课程网站，提供课程相关信息，讨论区帮助沟通。
 
 ![屏幕快照 2018-11-22 13.00.06](https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg)
 
 ![屏幕快照 2018-11-22 13.00.34](https://ws4.sinaimg.cn/large/006tNbRwly1fxgsihnqzcj31ir0u0dp0.jpg)
+
+![WechatIMG103](https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtc3vezkj30u01szjxv.jpg){:height="100px"}
+
+
+
+## ![WechatIMG104](https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtibz926j30u01sztfr.jpg){:height="100px"}
+
+![WechatIMG105](https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtiml6luj30u01sz4qp.jpg){:height="100px"}
 
 ## 技术栈
 
@@ -24,12 +28,22 @@ we had release version 0.3！
 * 帮助展示课程相关信息
 * 提供教师上传资料和讨论区，解决信息交流，发布，查询，公告的问题
 
+## 功能
+
+- [x] 查看课程简介、课程大纲、课程公告、评分标准、教师队伍等信息
+- [x] 教师上传资料下载
+- [x] 教师推荐阅读材料页面
+- [x] 成果PPT展示页讨论区主题发布评论
+- [ ] 课程考试
+
 ## 如何拉起前端
 
 node v8以上
 
 然后只需
 ```shell
+git clone git@github.com:shuopensourcecommunity/Chemiety.git
+cd Chemiety/frontend
 yarn install
 yarn run dev
 ```

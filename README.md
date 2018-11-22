@@ -5,12 +5,11 @@ we had release version 0.3！
 
 
 ## 简介
-    CHemiety是上海大学化学与社会的课程网站，集成了整合了已有的校园服务和信息，并在此之上提供更多。
-    提供从整个后端到小程序，网站，移动APP的解决方案。
+    Chemiety是上海大学化学与社会的课程网站,提供课程相关信息。
 
 ![屏幕快照 2018-11-22 13.00.06](https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg)
 
-![屏幕快照 2018-11-22 13.00.34](/Users/iris/Desktop/屏幕快照 2018-11-22 13.00.34.png)
+![屏幕快照 2018-11-22 13.00.34](https://ws4.sinaimg.cn/large/006tNbRwly1fxgsihnqzcj31ir0u0dp0.jpg)
 
 ## 技术栈
 
@@ -27,7 +26,7 @@ we had release version 0.3！
 
 ## 如何拉起前端
 
-首先你需要 yarn，请参照[官方网站](https://yarnpkg.com/zh-Hans/docs/install)安装yarn
+node v8以上
 
 然后只需
 ```shell

@@ -3,15 +3,15 @@
 ## 简介
     Chemiety是上海大学化学与社会的课程网站，提供课程相关信息，讨论区帮助沟通。
 
+![命令运行网易云音乐]({filename}/images/4.gif){: width="300px" height="300px"} 
+
 <img src="https://ws3.sinaimg.cn/large/006tNbRwly1fxgrnb5ohjj31i80u0wue.jpg" style="width:100%;">
 
 <img src="https://ws4.sinaimg.cn/large/006tNbRwly1fxgsihnqzcj31ir0u0dp0.jpg" style="width:100%;">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtc3vezkj30u01szjxv.jpg" style="width:300px;">
+<img src="https://ws3.sinaimg.cn/large/006tNbRwgy1fxgueesnkjj315p0u01kx.jpg" style="width:100%;">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtibz926j30u01sztfr.jpg" style="width:300px;">
 
-<img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fxgtiml6luj30u01sz4qp.jpg" style="width:300px;">
 
 ## 技术栈
 

@@ -1,39 +1,30 @@
 package cn.kastner.chemiety.domain;
 
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
 public class Info {
 
-    @InitBinder
-    protected void initBinder (WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
-    public Info () {
-        super();
-        this.createDate = new Date();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long infoId;
-
     @ManyToOne
     private User user;
-
+    @Column(columnDefinition = "TEXT")
+    private String title;
     @Column(columnDefinition = "TEXT")
     private String content;
-
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createDate;
+
+    public Info() {
+        super();
+        this.createDate = new Date();
+    }
 
     public Long getInfoId() {
         return infoId;
@@ -65,5 +56,13 @@ public class Info {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

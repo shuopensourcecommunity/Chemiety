@@ -27,12 +27,12 @@ public class PageController {
         return "admin";
     }
 
-    @RequestMapping(value = "/admin/checkPost")
+    @RequestMapping(value = "/admin/posts")
     public String checkPost () {
         return "checkPost";
     }
 
-    @RequestMapping(value = "/admin/info")
+    @RequestMapping(value = "/admin/infos")
     public String info () {
         return "info";
     }

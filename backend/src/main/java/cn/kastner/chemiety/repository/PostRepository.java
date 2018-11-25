@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     Post findByPostId(Long postId);
-    List<Post> findByContentIsNotNull();
+    List<Post> findByContentIsNotNullOrderByPostIdDesc();
     List<Post> findByUser(User user);
 }

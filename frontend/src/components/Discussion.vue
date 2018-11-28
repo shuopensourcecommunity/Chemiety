@@ -9,7 +9,7 @@
         q-card-main(style="padding-top:30px;padding-bottom:40px") {{ post.content }}
         q-card-separator
         q-list
-          q-collapsible(icon="message" :label="post.commentNumber + ' 人评论'") 
+          q-collapsible(icon="message" :label="post.commentNumber + ' 人评论'")
             q-item(multiline="")(style="padding:0")
               q-item-main.row
                 q-input(v-model='remark' float-label="写下你的评论吧！").col-8
@@ -23,8 +23,8 @@
     q-modal(v-model="maximizedModal" maximized='' :content-css="{padding: '20px'}" ref="modalRef")
       div(class="q-display-1 q-mb-md") 发布帖子
         q-input(v-model='title' float-label="标题")
-        q-input(v-model='content' 
-                float-label="帖子内容" 
+        q-input(v-model='content'
+                float-label="帖子内容"
                 type="textarea"
                 :max-height="400"
                 rows="10")
@@ -34,7 +34,7 @@
       q-btn(fab-mini round color="pink-6" icon="add" class="animate-pop" @click.native="modal.show()" :key="modal.label")
 </template>
 <script>
-import axios from 'axios'
+import api from '../api/api'
 import {
   Toast
 } from 'quasar'
@@ -79,17 +79,11 @@ export default {
       return msg.charAt(0).toUpperCase() + msg.slice(1)
     },
     getAllPost () {
-      axios({
-        url: 'http://139.196.75.17:8080/getPosts',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
+      api.getAllPost().then(res => {
+        this.posts = res.data.result.reverse()
+      }).catch(error => {
+        console.log(error)
       })
-        .then(res => {
-          this.posts = res.data.result.reverse()
-        })
     },
     updateComment (index) {
       // 判空
@@ -99,23 +93,15 @@ export default {
         })
       }
       else { // 非空
-        axios({
-          url: 'http://139.196.75.17:8080/postComment',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          params: {
-            content: this.remark,
-            postId: this.posts[index].postId
-          },
-          withCredentials: true
+        api.postComment({
+          content: this.remark,
+          postId: this.posts[index].postId
         })
           .then(res => {
             if (res.data.status === 0) {
               // toast success: res.data.result
               this.$set(this.posts[index], 'comments', [])
-              this.posts[index].commentNumber += 1 // 评论数 + 1
+              this.posts[index].commentNumber += 1// 评论数 + 1
               this.remark = '' // 清空输入框
               this.posts[index].comments.push(
                 res.data.result
@@ -130,11 +116,6 @@ export default {
               })
             }
           })
-          // .catch(err => {
-          //   Toast.create['info']({
-          //     html: '评论失败'
-          //   })
-          // })
       }
     },
     createPost () {
@@ -146,17 +127,9 @@ export default {
       else {
         // 请求前前端操作：清空输入框，关闭模态框
         this.maximizedModal = false
-        axios({
-          url: 'http://139.196.75.17:8080/postPost',
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          params: {
-            title: this.title,
-            content: this.content
-          },
-          withCredentials: true
+        api.postPost({
+          title: this.title,
+          content: this.content
         })
           .then(res => {
             if (res.data.status === 0) {

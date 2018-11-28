@@ -4,41 +4,29 @@ div.row.justify-center.layout
     div.col-12
       h4.caption 课程公告
       //info card
-      div.card-padding(v-for= "(info,index) in Infos")
+      div.card-padding(v-for= "(item,index) in info")
         q-card.bg-white
           q-item.content-padding
             q-item-side
               big
                 q-icon(name="face" color="info")
             q-item-main
-                q-item-tile.text(label='') {{ info.content }}
+                q-item-tile.text(label='') {{ item.content }}
           q-card-separator
-          q-card-main.text-faded 发布者：{{info.user.username}}&nbsp&nbsp&nbsp发布时间：{{info.createDate}}
+          q-card-main.text-faded 发布者：{{item.user.username}}&nbsp&nbsp&nbsp发布时间：{{item.createDate}}
           q-card-separator
-        
-        
+
+
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../api/api'
+// import axios from 'axios'
 export default {
   name: 'info',
   data () {
     return {
-      Infos: [
-        {
-          user: {
-            gender: '',
-            name: '',
-            roles: '',
-            userId: '',
-            username: ''
-          },
-          content: '',
-          createDate: '',
-          infoId: ''
-        }
-      ]
+      info: []
     }
   },
   created () {
@@ -46,22 +34,12 @@ export default {
   },
   methods: {
     getAllInfo () {
-      axios({
-        url: 'http://139.196.75.17:8080/getAllInfo',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
+      api.getAllInfo().then(res => {
+        this.info = res.data.result
+        console.log(this.info)
+      }).catch(error => {
+        console.log(error)
       })
-        .then(res => {
-          // console.log(1)
-          // console.log(res.data.result)
-          this.Infos = res.data.result
-        })
-    },
-    downloadFile (url) {
-      window.location.href = url
     }
   }
 }

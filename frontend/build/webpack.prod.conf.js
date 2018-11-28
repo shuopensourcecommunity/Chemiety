@@ -27,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     // Compress extracted CSS. We are using this plugin so that possible
-    // duplicated CSS from different components can be deduped.
+    // duplicated CSS from different templates can be deduped.
     new OptimizeCSSPlugin({
       cssProcessorOptions: {
         safe: true

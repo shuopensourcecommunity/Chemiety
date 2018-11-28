@@ -106,9 +106,14 @@ public class User {
     }
 
     public User (String name, String password) {
-        super();
         this.username = name;
         this.password = password;
+    }
+
+    public User (String name) {
+        this.roles = Role.STUDENT;
+        this.gender = Gender.MALE;
+        this.name = name;
     }
 
 

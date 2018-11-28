@@ -13,12 +13,12 @@
               q-item-side {{index+1}}
               q-item-main(label-lines="1" :label='website.title') {{website.name}}
               q-item-side {{website.date}}
-      
+
 
 </template>
 
 <script>
-import axios from 'axios'
+import api from '../api/api'
 export default {
   data () {
     return {
@@ -36,20 +36,8 @@ export default {
   },
   methods: {
     getAllFile () {
-      axios({
-        url: 'http://139.196.75.17:8080/getAllFiles',
-        params: {
-          fileType: 'website'
-        },
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        withCredentials: true
-      })
+      api.getAllFiles('website')
         .then(res => {
-          // console.log(1)
-          // console.log(res.data.result)
           this.websites = res.data.result
         })
     },

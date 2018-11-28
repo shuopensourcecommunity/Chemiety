@@ -7,32 +7,30 @@ import cn.kastner.chemiety.repository.InfoRepository;
 import cn.kastner.chemiety.repository.PostRepository;
 import cn.kastner.chemiety.repository.UserRepository;
 import cn.kastner.chemiety.util.NetResult;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import sun.nio.ch.Net;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping(value = "/api/v1/infos")
 public class InfoController {
 
-    @Autowired
-    UserRepository userRepository;
+    private final InfoRepository infoRepository;
+
+    private final NetResult netResult;
 
     @Autowired
-    PostRepository postRepository;
+    public InfoController(InfoRepository infoRepository, NetResult netResult) {
+        this.infoRepository = infoRepository;
+        this.netResult = netResult;
+    }
 
-    @Autowired
-    CommentRepository commentRepository;
-
-    @Autowired
-    InfoRepository infoRepository;
-
-    @Autowired
-    NetResult netResult;
-
-    @RequestMapping(value = "/postInfo")
+    @PostMapping
     public NetResult postInfo (Info info, HttpSession session) {
         User user = (User)session.getAttribute(User.CUR_USER);
         if (user != null) {
@@ -57,17 +55,45 @@ public class InfoController {
         return netResult;
     }
 
-    @RequestMapping(value = "/getAllInfo")
-    public NetResult getAllInfo () {
+    @GetMapping
+    public NetResult getInfos () {
         netResult.status = 0;
-        netResult.result = infoRepository.findByContentIsNotNull();
+        netResult.result = infoRepository.findByContentIsNotNullOrderByInfoIdDesc();
+        return netResult;
+    }
+
+    @GetMapping(value = "/{id}")
+    public NetResult getInfo(@PathVariable Long id) {
+        Optional<Info> infoOptional = infoRepository.findById(id);
+        if (infoOptional.isPresent()) {
+            netResult.result = infoOptional.get();
+            netResult.status = 0;
+        } else {
+            netResult.result = "没有这个公告";
+            netResult.status = -1;
+        }
+        return netResult;
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public NetResult deleteInfo(@PathVariable Long id) {
+        Optional<Info> infoOptional = infoRepository.findById(id);
+        if (infoOptional.isPresent()) {
+            Info info = infoOptional.get();
+            infoRepository.delete(info);
+            netResult.status = 0;
+            netResult.result = info;
+        } else {
+            netResult.status = -1;
+            netResult.result = "没有这个公告";
+        }
         return netResult;
     }
 
     @RequestMapping(value = "/getFirstInfo")
     public NetResult getFirstInfo () {
-        List<Info> infos = infoRepository.findByContentIsNotNull();
-        if (infos.size() != 0) {
+        List<Info> infos = infoRepository.findByContentIsNotNullOrderByInfoIdDesc();
+        if (!infos.isEmpty()) {
             netResult.status = 0;
             netResult.result = infos.get(infos.size() - 1);
         } else {

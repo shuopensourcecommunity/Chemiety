@@ -26,11 +26,6 @@
       -->
 
       <q-list no-border link inset-delimiter>
-        <!--<q-side-link>-->
-          <!--<q-item-main>-->
-            <!--<span id="school-logo"></span>-->
-          <!--</q-item-main>-->
-        <!--</q-side-link>-->
         <q-item-separator/>
         <q-side-link item to="/">
           <q-item-side icon="home"/>

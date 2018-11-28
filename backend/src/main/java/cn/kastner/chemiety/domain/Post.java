@@ -1,48 +1,37 @@
 package cn.kastner.chemiety.domain;
 
-import cn.kastner.chemiety.repository.PostRepository;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "post")
 public class Post {
 
-    public Post () {
-        super();
-        this.commentNumber = 0;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long postId;
-
     @Column(columnDefinition = "TEXT")
     private String content;
-
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createDate;
-
     private int commentNumber;
-
     @ManyToOne
     private User user;
-
     private String title;
-
     @OneToMany
     @LazyCollection(LazyCollectionOption.TRUE)
     private List<Comment> comments;
+
+    public Post() {
+        super();
+        this.commentNumber = 0;
+    }
 
     public Long getPostId() {
         return postId;

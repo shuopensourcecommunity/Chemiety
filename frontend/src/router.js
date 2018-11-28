@@ -8,9 +8,9 @@ function load (component) {
   return () => import(`@/${component}.vue`)
 }
 
-import Summary from '@/Summary'
-import Introduction from '@/Introduction'
-import Login from '@/Login'
+import Summary from '../src/components/Summary'
+import Introduction from '../src/components/Introduction'
+import Login from '../src/components/Login'
 export default new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,

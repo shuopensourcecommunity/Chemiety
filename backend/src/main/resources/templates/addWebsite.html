@@ -11,14 +11,17 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <title>参考链接设置</title>
 </head>
+<style>
+    a { text-decoration: none !important}
+</style>
 <body>
 <div id="app">
     <el-container>
         <el-header>
             <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-                <el-menu-item index="1"><a href="/admin/index">首页</a></el-menu-item>
-                <el-menu-item index="2"><a href="/admin/checkPost">帖子管理</a></el-menu-item>
-                <el-menu-item index="3"><a href="/admin/info">公告管理</a></el-menu-item>
+                <el-menu-item index="1"><a href="/admin/index" >首页</a></el-menu-item>
+                <el-menu-item index="2"><a href="/admin/posts">帖子管理</a></el-menu-item>
+                <el-menu-item index="3"><a href="/admin/infos">公告管理</a></el-menu-item>
                 <el-submenu index="5">
                     <template slot="title">资料设置</template>
                     <el-menu-item index="5-1"><a href="/admin/uploadEduFilePage">课件/文档上传</a></el-menu-item>
@@ -129,7 +132,7 @@
             handleDelete(index, fileId) {
                 this.tableData.splice(index, 1)
                 axios({
-                    url: '/admin/deleteFile',
+                    url: '/api/v1/admin/deleteFile',
                     method: 'POST',
                     params: {
                         fileId: fileId
@@ -152,7 +155,7 @@
             },
             getAllWebsites () {
                 axios({
-                    url: '/getAllFiles',
+                    url: '/api/v1/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'website'
@@ -167,7 +170,7 @@
             },
             addWebsite () {
                 axios({
-                    url: '/addWebsite',
+                    url: '/api/v1/addWebsite',
                     method: 'POST',
                     params: {
                         name: this.name,

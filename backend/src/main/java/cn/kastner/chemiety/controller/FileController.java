@@ -19,11 +19,17 @@ import java.util.List;
 public class FileController {
 
 
-    @Autowired
+    private final
     FileRepository fileRepository;
 
-    @Autowired
+    private final
     NetResult netResult;
+
+    @Autowired
+    public FileController(FileRepository fileRepository, NetResult netResult) {
+        this.fileRepository = fileRepository;
+        this.netResult = netResult;
+    }
 
 
     @RequestMapping(value = "/admin/uploadEduFile")

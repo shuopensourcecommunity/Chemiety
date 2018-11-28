@@ -69,8 +69,11 @@ public class PostController {
     }
 
     @PostMapping(value = "/posts")
-    public NetResult createStuPost(Post post, @RequestParam String name) {
-        User user = userRepository.save(new User(name));
+    public NetResult createStuPost(@RequestParam String title, @RequestParam String content, @RequestParam String username) {
+        User user = userRepository.save(new User(username));
+        Post post = new Post();
+        post.setContent(content);
+        post.setTitle(title);
         if (post.getContent() != null &&
                 post.getTitle() != null) {
             post.setCreateDate(new Date());
@@ -86,9 +89,11 @@ public class PostController {
     }
 
     @PostMapping(value = "/posts/{id}/comments")
-    public NetResult createStuComment(Comment comment, @PathVariable Long id, @RequestParam String name) {
-        User user = userRepository.save(new User(name));
+    public NetResult createStuComment(@RequestParam String content, @PathVariable Long id, @RequestParam String username) {
+        User user = userRepository.save(new User(username));
         Post exPost = postRepository.findByPostId(id);
+        Comment comment = new Comment();
+        comment.setContent(content);
         if (comment.getContent() == null) {
             netResult.status = -2;
             netResult.result = "评论内容为空";

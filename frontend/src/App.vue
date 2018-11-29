@@ -14,9 +14,6 @@
       <q-toolbar-title>
         化学与社会
       </q-toolbar-title>
-      <q-btn flat @click="login">
-        <q-icon name="person"/> 登录
-      </q-btn>
     </q-toolbar>
     <div slot="left">
       <!--

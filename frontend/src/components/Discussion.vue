@@ -12,13 +12,15 @@
           q-collapsible(icon="message" :label="post.commentNumber + ' 人评论'")
             q-item(multiline="")(style="padding:0")
               q-item-main.row
-                q-input(v-model='remark' float-label="写下你的评论吧！").col-8
-                q-btn(flat='' color="primary" icon="send" @click="updateComment(index)" style="padding-right:0").col-4 评论
+                q-input(v-model='remark' float-label="写下你的评论吧！").col-6
+                div.col-1
+                q-input(v-model='commentName' float-label="姓名").col-3
+                q-btn(flat='' color="primary" icon="send" @click="updateComment(index)" style="padding-right:0").col-2 评论
             div(v-for="(comment) in post.comments")
               q-item
                 q-item-main {{comment.content}}
                 q-item-side(right="")
-                  q-item-tile {{comment.user.name}}
+                  q-item-tile 姓名：{{comment.user.name}}
               q-card-separator
     q-modal(v-model="maximizedModal" maximized='' :content-css="{padding: '20px'}" ref="modalRef")
       div(class="q-display-1 q-mb-md") 发布帖子
@@ -28,6 +30,7 @@
                 type="textarea"
                 :max-height="400"
                 rows="10")
+        q-input(v-model='name' float-label="姓名")
         q-btn(color="info" @click="createPost") 创建
         q-btn(color="grey" label="Close" @click.native="modal.close()") 取消
     q-page-sticky(:offset="[18, 18]" style="z-index:999;position:fixed;right:50px;bottom:50px;")
@@ -51,6 +54,8 @@ export default {
       posts: [],
       comment: '',
       remark: '',
+      name: '',
+      commentName: '',
       toastShowing: false,
       search: '',
       maximizedModal: false,
@@ -95,7 +100,8 @@ export default {
       else { // 非空
         api.postComment({
           content: this.remark,
-          postId: this.posts[index].postId
+          id: this.posts[index].postId,
+          username: this.commentName
         })
           .then(res => {
             if (res.data.status === 0) {
@@ -103,6 +109,7 @@ export default {
               this.$set(this.posts[index], 'comments', [])
               this.posts[index].commentNumber += 1// 评论数 + 1
               this.remark = '' // 清空输入框
+              this.commentName = ''
               this.posts[index].comments.push(
                 res.data.result
               )
@@ -119,7 +126,8 @@ export default {
       }
     },
     createPost () {
-      if (this.title === '' || this.content === '') {
+      console.log('jhh')
+      if (this.title === '' || this.content === '' || this.name === '') {
         Toast.create['info']({
           html: '不能为空'
         })
@@ -129,11 +137,11 @@ export default {
         this.maximizedModal = false
         api.postPost({
           title: this.title,
-          content: this.content
+          content: this.content,
+          username: this.name
         })
           .then(res => {
             if (res.data.status === 0) {
-              // 将新 post 加入数组
               this.posts.unshift(
                 res.data.result
               )
@@ -145,7 +153,7 @@ export default {
             }
             else {
               Toast.create['info']({
-                html: res.data.result
+                html: '发布失败'
               })
             }
           })

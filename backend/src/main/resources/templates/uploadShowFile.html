@@ -48,7 +48,7 @@
                                 <el-form-item label="选择上传文件">
                                     <el-upload
                                             ref="upload"
-                                            action="/admin/uploadShowFile"
+                                            action="/api/v1/admin/uploadShowFile"
                                             :on-success="clear"
                                             :data="uploadParam"
                                             :on-preview="handlePreview"
@@ -166,7 +166,7 @@
             },
             getAllShowFiles () {
                 axios({
-                    url: '/api/v1/getAllFiles',
+                    url: '/api/v1/admin/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'show'

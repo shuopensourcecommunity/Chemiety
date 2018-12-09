@@ -155,7 +155,7 @@
             },
             getAllWebsites () {
                 axios({
-                    url: '/api/v1/getAllFiles',
+                    url: '/api/v1/admin/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'website'
@@ -170,7 +170,7 @@
             },
             addWebsite () {
                 axios({
-                    url: '/api/v1/addWebsite',
+                    url: '/api/v1/admin/addWebsite',
                     method: 'POST',
                     params: {
                         name: this.name,

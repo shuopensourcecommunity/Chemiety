@@ -145,7 +145,7 @@ public class FileController {
         return result;
     }
 
-    @RequestMapping(value = "/addWebsite")
+    @RequestMapping(value = "/admin/addWebsite")
     public NetResult addWebsite (cn.kastner.chemiety.domain.File file) {
         String name = file.getName();
         String url = file.getUrl();
@@ -167,7 +167,7 @@ public class FileController {
         return netResult;
     }
 
-    @RequestMapping(value = "/getAllFiles")
+    @RequestMapping(value = "/admin/getAllFiles")
     public NetResult getAllSlides (@RequestParam String fileType) {
         List<cn.kastner.chemiety.domain.File> files;
         switch (fileType) {

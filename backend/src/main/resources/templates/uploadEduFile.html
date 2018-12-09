@@ -50,7 +50,7 @@
                                 <el-form-item label="选择上传文件">
                                     <el-upload
                                             ref="upload"
-                                            action="/admin/uploadEduFile"
+                                            action="/api/v1/admin/uploadEduFile"
                                             :data="uploadParam"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
@@ -163,7 +163,7 @@
             },
             getAllEduFiles () {
                 axios({
-                    url: '/api/v1/getAllFiles',
+                    url: '/api/v1/admin/getAllFiles',
                     method: 'POST',
                     params: {
                         fileType: 'edu'

@@ -151,7 +151,7 @@ public class PostController {
         return netResult;
     }
 
-    @GetMapping(value = "/admin/posts/{id}")
+    @GetMapping(value = "/posts/{id}")
     public NetResult getPost(@PathVariable Long id) {
         Optional<Post> postOptional = postRepository.findById(id);
         if (postOptional.isPresent()) {
@@ -164,7 +164,7 @@ public class PostController {
         return netResult;
     }
 
-    @GetMapping("/admin/posts")
+    @GetMapping("/posts")
     public NetResult getPosts() {
         List<Post> posts = postRepository.findByContentIsNotNullOrderByPostIdDesc();
         for (Post post : posts) {

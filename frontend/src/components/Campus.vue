@@ -9,10 +9,10 @@
         q-card-separator
         q-list
           div(v-for="(website,index) in websites")
-            q-item(:id="website")
+            q-item(:id="website" @click='toLink(website.url)')
               q-item-side {{index+1}}
               q-item-main(label-lines="1" :label='website.title')
-                a(href="#" @click="toLink(website.url)") {{website.name}}
+                a {{website.name}}
               q-item-side {{website.date}}
 
 
@@ -43,8 +43,7 @@ export default {
         })
     },
     toLink (url) {
-      window.location.href = url
-      window.event.returnValue = false
+      window.open('' + url)
     }
   }
 }

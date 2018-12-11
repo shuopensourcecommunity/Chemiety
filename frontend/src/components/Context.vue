@@ -87,7 +87,7 @@ export default {
         })
     },
     downloadFile (url) {
-      window.open('http://chemiety.kastner.cn' + url)
+      window.open('http://chemiety-admin.kastner.cn' + url)
     },
     toLink (url) {
       window.location.href = url

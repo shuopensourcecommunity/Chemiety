@@ -43,18 +43,19 @@
                             <el-form label-position="right" label-width="120px">
                                 <el-form-item label="文件类型">
                                     <el-radio-group v-model="uploadParam.type" size="small">
-                                        <el-radio-button label="0">课件</el-radio-button>
-                                        <el-radio-button label="1">资料</el-radio-button>
+                                        <el-radio-button label="SLIDE">课件</el-radio-button>
+                                        <el-radio-button label="DOCUMENT">资料</el-radio-button>
                                     </el-radio-group>
                                 </el-form-item>
                                 <el-form-item label="选择上传文件">
                                     <el-upload
                                             ref="upload"
-                                            action="/api/v1/admin/uploadEduFile"
+                                            action="/api/v1/admin/uploadFiles"
                                             :data="uploadParam"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
-                                            :file-list="fileList"
+                                            :uploadFile-list="fileList"
+                                            :on-success="getAllEduFiles"
                                             :auto-upload="false">
                                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
@@ -116,7 +117,7 @@
                 hasClassTable: false,
                 action: '',
                 uploadParam: {
-                  type: 0
+                  type: 'SLIDE'
                 },
                 fileList: [],
                 tableData: []
@@ -129,11 +130,11 @@
             submitUpload() {
                 this.$refs.upload.submit();
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+            handleRemove(uploadFile, fileList) {
+                console.log(uploadFile, fileList);
             },
-            handlePreview(file) {
-                console.log(file);
+            handlePreview(uploadFile) {
+                console.log(uploadFile);
             },
             handleEdit(index, row) {
                     console.log(index, row);

@@ -6,14 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class File {
-
-    public enum Type {
-        SLIDE,
-        DOCUMENT,
-        SHOW,
-        WEBSITE
-    }
+public class UploadFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,7 +17,8 @@ public class File {
     @Column(columnDefinition = "TEXT")
     private String path;
 
-    private Type type;
+    @Enumerated(EnumType.STRING)
+    private FileType type;
 
     @Column(columnDefinition = "TEXT")
     private String url;
@@ -67,11 +61,11 @@ public class File {
         this.url = url;
     }
 
-    public Type getType() {
+    public FileType getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(FileType type) {
         this.type = type;
     }
 

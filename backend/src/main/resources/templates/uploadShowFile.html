@@ -48,12 +48,12 @@
                                 <el-form-item label="选择上传文件">
                                     <el-upload
                                             ref="upload"
-                                            action="/api/v1/admin/uploadShowFile"
-                                            :on-success="clear"
+                                            action="/api/v1/admin/uploadFiles"
                                             :data="uploadParam"
                                             :on-preview="handlePreview"
                                             :on-remove="handleRemove"
-                                            :file-list="fileList"
+                                            :uploadFile-list="fileList"
+                                            :on-success="getAllShowFiles"
                                             :auto-upload="false">
                                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
@@ -114,7 +114,8 @@
                 hasClassTable: false,
                 action: '',
                 uploadParam: {
-                    author: ''
+                    author: '',
+                    type: 'SHOW'
                 },
 
                 fileList: [],
@@ -128,11 +129,11 @@
             submitUpload() {
                 this.$refs.upload.submit();
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+            handleRemove(uploadFile, fileList) {
+                console.log(uploadFile, fileList);
             },
-            handlePreview(file) {
-                console.log(file);
+            handlePreview(uploadFile) {
+                console.log(uploadFile);
             },
             handleEdit(index, row) {
                 console.log(index, row);
@@ -161,10 +162,8 @@
                     })
 
             },
-            clear () {
-                this.uploadParam.author = ''
-            },
             getAllShowFiles () {
+                this.uploadParam.author = ''
                 axios({
                     url: '/api/v1/admin/getAllFiles',
                     method: 'POST',

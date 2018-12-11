@@ -120,11 +120,11 @@
             submitUpload() {
                 this.$refs.upload.submit();
             },
-            handleRemove(file, fileList) {
-                console.log(file, fileList);
+            handleRemove(uploadFile, fileList) {
+                console.log(uploadFile, fileList);
             },
-            handlePreview(file) {
-                console.log(file);
+            handlePreview(uploadFile) {
+                console.log(uploadFile);
             },
             handleEdit(index, row) {
                 console.log(index, row);
@@ -186,6 +186,7 @@
                         } else {
                             this.$message.error(response.data.result)
                         }
+                        this.getAllWebsites()
                     })
                     .catch( error => {
                         this.$message.error(error)

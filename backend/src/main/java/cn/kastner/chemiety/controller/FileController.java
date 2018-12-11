@@ -1,17 +1,21 @@
 package cn.kastner.chemiety.controller;
 
-import cn.kastner.chemiety.repository.FileRepository;
+import cn.kastner.chemiety.domain.FileType;
+import cn.kastner.chemiety.domain.UploadFile;
+import cn.kastner.chemiety.exception.FileException;
+import cn.kastner.chemiety.repository.UploadFileRepository;
+import cn.kastner.chemiety.service.FileService;
 import cn.kastner.chemiety.util.NetResult;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.UIResource;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 
@@ -20,16 +24,17 @@ import java.util.List;
 public class FileController {
 
 
-    private final
-    FileRepository fileRepository;
+    final private UploadFileRepository uploadFileRepository;
 
-    private final
-    NetResult netResult;
+    final private NetResult netResult;
+
+    final private FileService fileService;
 
     @Autowired
-    public FileController(FileRepository fileRepository, NetResult netResult) {
-        this.fileRepository = fileRepository;
+    public FileController(UploadFileRepository uploadFileRepository, NetResult netResult, FileService fileService) {
+        this.uploadFileRepository = uploadFileRepository;
         this.netResult = netResult;
+        this.fileService = fileService;
     }
 
 
@@ -58,23 +63,23 @@ public class FileController {
                     out.flush();
                     out.close();
                 }
-                cn.kastner.chemiety.domain.File.Type classType = null;
+                FileType classType = null;
                 if (0 == type) {
-                    classType = cn.kastner.chemiety.domain.File.Type.SLIDE;
+                    classType = FileType.SLIDE;
                 } else if (1 == type) {
-                    classType = cn.kastner.chemiety.domain.File.Type.DOCUMENT;
+                    classType = FileType.DOCUMENT;
                 }
                 String realpath = "/" + type + "/" + file.getOriginalFilename();
-                cn.kastner.chemiety.domain.File file1 = fileRepository.findByNameAndType(originalFilename, classType);
-                if (file1 != null) {
-                    file1.setDate(new Date());
+                UploadFile uploadFile = uploadFileRepository.findByNameAndType(originalFilename, classType);
+                if (uploadFile != null) {
+                    uploadFile.setDate(new Date());
                 } else {
-                    file1 = new cn.kastner.chemiety.domain.File();
-                    file1.setName(originalFilename);
-                    file1.setDate(new Date());
-                    file1.setType(classType);
-                    file1.setPath(realpath);
-                    fileRepository.save(file1);
+                    uploadFile = new UploadFile();
+                    uploadFile.setName(originalFilename);
+                    uploadFile.setDate(new Date());
+                    uploadFile.setType(classType);
+                    uploadFile.setPath(realpath);
+                    uploadFileRepository.save(uploadFile);
                 }
                 result.status = 0;
                 result.result = realpath;
@@ -116,19 +121,19 @@ public class FileController {
                     out.flush();
                     out.close();
                 }
-                cn.kastner.chemiety.domain.File.Type classType = cn.kastner.chemiety.domain.File.Type.SHOW;
+                FileType classType = FileType.SHOW;
                 String realpath = "/" + 2 + "/" + file.getOriginalFilename();
-                cn.kastner.chemiety.domain.File file1 = fileRepository.findByNameAndType(originalFilename, classType);
-                if (file1 != null) {
-                    file1.setDate(new Date());
+                UploadFile uploadFile = uploadFileRepository.findByNameAndType(originalFilename, classType);
+                if (uploadFile != null) {
+                    uploadFile.setDate(new Date());
                 } else {
-                    file1 = new cn.kastner.chemiety.domain.File();
-                    file1.setName(originalFilename);
-                    file1.setDate(new Date());
-                    file1.setType(classType);
-                    file1.setPath(realpath);
-                    file1.setAuthor(author);
-                    fileRepository.save(file1);
+                    uploadFile = new UploadFile();
+                    uploadFile.setName(originalFilename);
+                    uploadFile.setDate(new Date());
+                    uploadFile.setType(classType);
+                    uploadFile.setPath(realpath);
+                    uploadFile.setAuthor(author);
+                    uploadFileRepository.save(uploadFile);
                 }
                 result.status = 0;
                 result.result = realpath;
@@ -146,14 +151,14 @@ public class FileController {
     }
 
     @RequestMapping(value = "/admin/addWebsite")
-    public NetResult addWebsite (cn.kastner.chemiety.domain.File file) {
-        String name = file.getName();
-        String url = file.getUrl();
+    public NetResult addWebsite(UploadFile uploadFile) {
+        String name = uploadFile.getName();
+        String url = uploadFile.getUrl();
         if (name != null) {
             if (url != null) {
-                file.setType(cn.kastner.chemiety.domain.File.Type.WEBSITE);
-                file.setDate(new Date());
-                fileRepository.save(file);
+                uploadFile.setType(FileType.WEBSITE);
+                uploadFile.setDate(new Date());
+                uploadFileRepository.save(uploadFile);
                 netResult.status = 0;
                 netResult.result = "添加成功！";
             } else {
@@ -168,44 +173,94 @@ public class FileController {
     }
 
     @RequestMapping(value = "/admin/getAllFiles")
-    public NetResult getAllSlides (@RequestParam String fileType) {
-        List<cn.kastner.chemiety.domain.File> files;
+    public NetResult getAllSlides(@RequestParam String fileType) {
+        List<UploadFile> uploadFiles;
         switch (fileType) {
             case "edu":
-                files = fileRepository.findByTypeOrType(
-                        cn.kastner.chemiety.domain.File.Type.SLIDE,
-                        cn.kastner.chemiety.domain.File.Type.DOCUMENT
+                uploadFiles = uploadFileRepository.findByTypeOrType(
+                        FileType.SLIDE,
+                        FileType.DOCUMENT
                 );
                 break;
             case "show":
-                files = fileRepository.findByType(
-                        cn.kastner.chemiety.domain.File.Type.SHOW
+                uploadFiles = uploadFileRepository.findByType(
+                        FileType.SHOW
                 );
                 break;
             case "website":
-                files = fileRepository.findByType(
-                        cn.kastner.chemiety.domain.File.Type.WEBSITE
+                uploadFiles = uploadFileRepository.findByType(
+                        FileType.WEBSITE
                 );
                 break;
             default:
-                files = null;
+                uploadFiles = null;
         }
         netResult.status = 0;
-        netResult.result = files;
+        netResult.result = uploadFiles;
         return netResult;
     }
 
     @RequestMapping(value = "/admin/deleteFile")
-    public NetResult deleteFile (@RequestParam Long fileId) {
-        cn.kastner.chemiety.domain.File file = fileRepository.findByFileId(fileId);
-        if (file == null) {
+    public NetResult deleteFile(@RequestParam Long fileId) {
+        UploadFile uploadFile = uploadFileRepository.findByFileId(fileId);
+        if (uploadFile == null) {
             netResult.status = -1;
             netResult.result = "文件不存在！";
         } else {
-            fileRepository.delete(file);
+            uploadFileRepository.delete(uploadFile);
             netResult.status = 0;
             netResult.result = "删除成功！";
         }
         return netResult;
+    }
+
+    @PostMapping(value = "/admin/uploadFiles")
+    public NetResult uploadFile(@RequestParam MultipartFile file, @RequestParam FileType type, String author, HttpServletRequest request) throws IOException, FileException {
+        String tempPath = fileService.uploadFile(file, request);
+        String relativeDirectory = File.separator + type + File.separator;
+        String path = fileService.saveFile(tempPath, relativeDirectory);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.setAuthor(author);
+        uploadFile.setDate(new Date());
+        uploadFile.setName(file.getOriginalFilename());
+        uploadFile.setPath(path);
+        uploadFile.setType(type);
+        netResult.status = 0;
+        netResult.result = uploadFileRepository.save(uploadFile);
+        return netResult;
+    }
+
+    @GetMapping(value = "/uploadFiles")
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response, @RequestParam Long id) throws IOException{
+        UploadFile file = uploadFileRepository.findByFileId(id);
+        String path = file.getPath();
+        File downloadFile = new File(path);
+
+        ServletContext context = request.getServletContext();
+
+        // get MIME type of the file
+        String mimeType = context.getMimeType(path);
+        if (mimeType == null) {
+            // set to binary type if MIME mapping not found
+            mimeType = "application/octet-stream";
+            System.out.println("context getMimeType is null");
+        }
+        System.out.println("MIME type: " + mimeType);
+
+        // set content attributes for the response
+        response.setContentType(mimeType);
+        response.setContentLength((int) downloadFile.length());
+
+        // set headers for the response
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=\"%s\"",
+                downloadFile.getName());
+        response.setHeader(headerKey, headerValue);
+
+        // Copy the stream to the response's output stream.
+        try (InputStream myStream = new FileInputStream(path)) {
+            IOUtils.copy(myStream, response.getOutputStream());
+        }
+        response.flushBuffer();
     }
 }

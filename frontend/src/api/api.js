@@ -15,10 +15,9 @@ axios.defaults.headers.common = {
 }
 
 export default {
-  getFirstInfo: () => axios.get('/api/v1/infos/getFirstInfo'),
   getAllInfo: () => axios.get('/api/v1/infos'),
-  getAllFiles: (fileType) => axios.get('/api/v1/getAllFiles', {params: {fileType: fileType}}),
-  getAllPost: () => axios.get('/api/v1/admin/posts/getMyPosts'),
+  getAllFiles: (fileType) => axios.get('/api/v1/admin/getAllFiles', {params: {fileType: fileType}}),
+  getAllPost: () => axios.get('/api/v1/posts'),
   postComment: ({content, id, username}) => axios.post(`/api/v1/posts/${id}/comments?content=${content}&username=${username}`),
   postPost: ({title, content, username}) => axios.post(`/api/v1/posts?title=${title}&content=${content}&username=${username}`)
 }

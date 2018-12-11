@@ -6,14 +6,16 @@ div.row.justify-center.layout
       //info card
       div.card-padding(v-for= "(item,index) in info")
         q-card.bg-white
+          q-card-title
+            big
+              q-icon(name="face" color="info" style="padding-right: 20px;")
+            |{{ item.title }}
+          q-card-separator
           q-item.content-padding
-            q-item-side
-              big
-                q-icon(name="face" color="info")
             q-item-main
                 q-item-tile.text(label='') {{ item.content }}
           q-card-separator
-          q-card-main.text-faded 发布者：{{item.user.username}}&nbsp&nbsp&nbsp发布时间：{{item.createDate}}
+          q-card-main.text-faded 发布者：{{item.user.name}}&nbsp&nbsp&nbsp发布时间：{{item.createDate}}
           q-card-separator
 
 

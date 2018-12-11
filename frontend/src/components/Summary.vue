@@ -99,6 +99,34 @@ div.row.justify-center.layout
             q-item-tile(icon="arrow forward")
           q-item-main
             q-item-tile(label='') 查看完整课程安排
+      q-card.bg-white
+        q-item
+          q-item-side
+            big
+              q-item-tile(icon="view list")
+          q-item-main
+            q-item-tile.card-title(label='') 成果展示
+          q-item-side
+            q-item-tile(right='', icon='more vert')
+        q-list-header 优秀成果
+          p(v-if='shows.length == 0') 暂无成果可以显示
+        q-item(v-for='show in shows', :key="slides.name")
+          q-item-side
+            q-item-tile(icon='insert chart')
+          q-item-main
+            q-item-tile(label='') {{show.name}}
+          q-item-side
+            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(show.path)')
+        q-card-separator.card-separatorr
+        q-item(link='', to='/gallery')
+          q-item-side
+            q-item-tile(icon="arrow forward")
+          q-item-main
+            q-item-tile(label='') 查看更多学生成果展示
+
+    div.col-sm-12.col-md-4.col-lg-4
+      // gallery card
+
       //context card
       q-card.bg-white
         q-item
@@ -110,6 +138,7 @@ div.row.justify-center.layout
           q-item-side
             q-item-tile(right='', icon='more vert')
         q-list-header 课件
+          p(v-if='slides.length == 0') 暂无课件可以显示
         q-item(v-for='slide in slides', :key="slides.name")
           q-item-side
             q-item-tile(icon='insert chart')
@@ -117,7 +146,7 @@ div.row.justify-center.layout
             q-item-tile(label='') {{slide.name}}
             q-item-tile(sublabel='') {{slide.description}}
           q-item-side
-            q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(slide.url)')
+            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(slide.path)')
         q-list-header 其他文档
           p(v-if='docs.length == 0') 暂无文档可以显示
         q-item(v-for='doc in docs' :key='docs.desciption')
@@ -127,38 +156,13 @@ div.row.justify-center.layout
             q-item-tile(label='') {{doc.name}}
             q-item-tile(sublabel='') {{doc.description}}
           q-item-side
-            q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(doc.url)')
+            q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(doc.path)')
         q-card-separator.card-separator
         q-item(link='', to='/context')
           q-item-side
             q-item-tile(icon="arrow forward")
           q-item-main
             q-item-tile(label='') 查看所有课程内容
-    //right colomn
-    div.col-sm-12.col-md-4.col-lg-4
-      // gallery card
-      q-card.bg-white
-        q-item
-          q-item-side
-            big
-              q-item-tile(icon="slideshow")
-          q-item-main
-              q-item-tile.card-title(label='') 成果展示
-          q-item-side
-            q-item-tile(right='', icon='more vert')
-        q-card-media
-          q-gallery-carousel(:src="presentations.src")
-        q-card-title {{presentations.topic}}
-          span(slot="subtitle") {{presentations.time}} {{presentations.authorName}}
-        q-card-main
-          p {{presentations.title}}
-          p.text-faded
-        q-card-separator.card-separatorr
-        q-item(link='', to='/gallery')
-          q-item-side
-            q-item-tile(icon="arrow forward")
-          q-item-main
-            q-item-tile(label='') 查看更多学生成果展示
 
 
 
@@ -173,55 +177,40 @@ export default {
   data () {
     return {
       content: '',
-      presentations: {
-        src: [
-          'statics/Run+Music/Slide1.JPG',
-          'statics/Run+Music/Slide2.JPG',
-          'statics/Run+Music/Slide3.JPG',
-          'statics/Run+Music/Slide4.JPG',
-          'statics/Run+Music/Slide5.JPG',
-          'statics/Run+Music/Slide6.JPG',
-          'statics/Run+Music/Slide7.JPG',
-          'statics/Run+Music/Slide8.JPG'
-        ],
-        topic: 'Running + Music = ?',
-        time: '2016年春季',
-        authorName: '路人甲',
-        title: 'asdaa',
-        description: '开始用队列完成进入，利用临时栈完成调读',
-        stars: '',
-        url: ''
-      },
-      slides: [
-        {
-          type: 'ppt',
-          name: '第二讲',
-          description: '第二讲课件',
-          url: '~/assets/a.pptx'
-        },
-        {
-          type: 'pdf',
-          name: 'sda',
-          description: 'sdadasdas',
-          url: 'sdad'
-        }
-      ],
-      docs: []
+      slides: [],
+      docs: [],
+      shows: []
     }
   },
   created () {
     this.getFirstInfo()
+    this.getSlides()
+    this.getShow()
   },
   methods: {
     getFirstInfo () {
-      api.getFirstInfo()
+      api.getAllInfo()
         .then(res => {
-          console.log(res.data.result)
-          this.content = res.data.result.content
+          this.content = res.data.result[0].title
         })
     },
+    getSlides () {
+      api.getAllFiles('edu').then(res => {
+        this.slides = res.data.result.filter(item => item.type === 'SLIDE')
+        this.docs = res.data.result.filter(item => item.type === 'DOCUMENT')
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getShow () {
+      api.getAllFiles('show').then(res => {
+        this.shows = res.data.result
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     downloadFile (url) {
-      window.location.href = url
+      window.open('http://chemiety-admin.kastner.cn' + url)
     }
   }
 }

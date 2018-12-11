@@ -8,7 +8,7 @@
         q-card-separator
         q-list
           div(v-for="(slide,index) in slides")
-            q-item(:id="slide",link=''  @click='downloadFile(slide.path)')
+            q-item(:id="slide",link=''  @click='downloadFile(slide.fileId)')
               q-item-side {{index+1}}
               q-item-main(label-lines="1" :label='slide.title') {{slide.name}}
               q-item-side {{slide.date}}
@@ -18,7 +18,7 @@
         q-card-separator
         q-list
           div(v-for="(doc,index) in documents")
-            q-item(:id="doc",link=''  @click='downloadFile(doc.path)')
+            q-item(:id="doc",link=''  @click='downloadFile(doc.fileId)')
               q-item-side {{index+1}}
               q-item-main(label-lines="1" :label='doc.title') {{doc.name}}
               q-item-side {{doc.date}}
@@ -28,7 +28,7 @@
         q-card-separator
         q-list
           div(v-for="(show,index) in shows")
-            q-item(:id="show",link=''  @click='downloadFile(show.path)')
+            q-item(:id="show",link=''  @click='downloadFile(show.fileId)')
               q-item-side {{index+1}}
               q-item-main(label-lines="1" :label='show.title') {{show.name}}
               q-item-side {{show.date}}
@@ -86,8 +86,8 @@ export default {
           this.shows = res.data.result
         })
     },
-    downloadFile (url) {
-      window.open('http://chemiety-admin.kastner.cn' + url)
+    downloadFile (id) {
+      window.open('http://chemiety-admin.kastner.cn/api/v1/uploadFiles?id=' + id)
     },
     toLink (url) {
       window.location.href = url

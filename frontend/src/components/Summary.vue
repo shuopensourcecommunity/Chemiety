@@ -109,6 +109,7 @@ div.row.justify-center.layout
           q-item-side
             q-item-tile(right='', icon='more vert')
         q-list-header 优秀成果
+          p(v-if='shows.length == 0') 暂无成果可以显示
         q-item(v-for='show in shows', :key="slides.name")
           q-item-side
             q-item-tile(icon='insert chart')
@@ -137,6 +138,7 @@ div.row.justify-center.layout
           q-item-side
             q-item-tile(right='', icon='more vert')
         q-list-header 课件
+          p(v-if='slides.length == 0') 暂无课件可以显示
         q-item(v-for='slide in slides', :key="slides.name")
           q-item-side
             q-item-tile(icon='insert chart')

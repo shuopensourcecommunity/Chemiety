@@ -116,7 +116,7 @@ div.row.justify-center.layout
           q-item-main
             q-item-tile(label='') {{show.name}}
           q-item-side
-            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(show.path)')
+            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(show.fileId)')
         q-card-separator.card-separatorr
         q-item(link='', to='/gallery')
           q-item-side
@@ -146,7 +146,7 @@ div.row.justify-center.layout
             q-item-tile(label='') {{slide.name}}
             q-item-tile(sublabel='') {{slide.description}}
           q-item-side
-            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(slide.path)')
+            q-btn(icon='file download', flat='' round='' small='' @click='downloadFile(slide.fileId)')
         q-list-header 其他文档
           p(v-if='docs.length == 0') 暂无文档可以显示
         q-item(v-for='doc in docs' :key='docs.desciption')
@@ -156,7 +156,7 @@ div.row.justify-center.layout
             q-item-tile(label='') {{doc.name}}
             q-item-tile(sublabel='') {{doc.description}}
           q-item-side
-            q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(doc.path)')
+            q-btn(icon='file download',flat='' round='' small='' @click='downloadFile(doc.fileId)')
         q-card-separator.card-separator
         q-item(link='', to='/context')
           q-item-side
@@ -209,8 +209,8 @@ export default {
         console.log(err)
       })
     },
-    downloadFile (url) {
-      window.open('http://chemiety-admin.kastner.cn' + url)
+    downloadFile (id) {
+      window.open('http://chemiety-admin.kastner.cn/api/v1/uploadFiles?id=' + id)
     }
   }
 }
